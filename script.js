@@ -13,8 +13,6 @@ class VirtualPet {
         this.lastUpdate = Date.now();
         this.isSleeping = false;
         this.idleInterval = null;
-        this.eyeFollowStrength = 6;
-        this.handleEyeTracking = this.handleEyeTracking.bind(this);
         
         // Growth system
         this.growthStage = 'baby'; // baby, child, teen, adult, elder
@@ -42,9 +40,35 @@ class VirtualPet {
         this.healCount = 0;
         this.bathCount = 0;
         this.trainCount = 0;
+        this.vetCount = 0;
+        this.choreCount = 0;
+        this.toyCount = 0;
+        this.trickCount = 0;
         this.totalXP = 0;
         this.createdDate = Date.now();
         this.totalTimePlayed = 0;
+        
+        // Money & Savings system
+        this.wallet = 100;
+        this.totalEarned = 100;
+        this.totalSpent = 0;
+        this.savingsGoal = 100;
+        this.saved = 0;
+        
+        // Activity & Badges
+        this.badges = {
+            earlyBird: false,
+            nightOwl: false,
+            caretaker: false,
+            millionaire: false,
+            saver: false,
+            spender: false,
+            trainer: false,
+            veterinarian: false,
+            cleaner: false,
+            player: false
+        };
+        this.activityLog = [];
         
         // Settings
         this.settings = {
@@ -97,14 +121,36 @@ class VirtualPet {
         this.healBtn = document.getElementById('healBtn');
         this.bathBtn = document.getElementById('bathBtn');
         this.trainBtn = document.getElementById('trainBtn');
+        this.vetBtn = document.getElementById('vetBtn');
+        this.choreBtn = document.getElementById('choreBtn');
+        this.toyBtn = document.getElementById('toyBtn');
+        this.trickBtn = document.getElementById('trickBtn');
+        
+        // Tab buttons
+        this.petStatsTab = document.getElementById('petStatsTab');
+        this.moneySavingsTab = document.getElementById('moneySavingsTab');
+        this.activityBadgesTab = document.getElementById('activityBadgesTab');
+        
+        // Money & Savings elements
+        this.walletDisplay = document.getElementById('walletAmount');
+        this.earnedDisplay = document.getElementById('earnedAmount');
+        this.spentDisplay = document.getElementById('spentAmount');
+        this.savingsGoalDisplay = document.getElementById('savingsGoal');
+        this.savedDisplay = document.getElementById('savedAmount');
         
         // Message
         this.message = document.getElementById('message');
 
         // Ambient/visual elements
         this.thoughtBubble = document.getElementById('thoughtBubble');
-        this.leftPupil = document.querySelector('.left-eye .pupil');
-        this.rightPupil = document.querySelector('.right-eye .pupil');
+        this.petEmoji = document.querySelector('.pet-emoji');
+        this.moodBadge = document.querySelector('.mood-badge');
+        this.petStageDisplay = document.querySelector('.pet-stage');
+        this.petTypeDisplay = document.querySelector('.pet-type-display');
+        this.petLevelDisplay = document.querySelector('.pet-level');
+        this.petExpDisplay = document.querySelector('.pet-exp');
+        this.moodEmojiDisplay = document.querySelector('.mood-emoji');
+        this.moodTextDisplay = document.querySelector('.mood-text');
         this.bodyElement = document.body;
 
         // Settings and Analytics
@@ -125,12 +171,21 @@ class VirtualPet {
             if (e.key === 'Enter') this.setPetName();
         });
 
-        this.feedBtn.addEventListener('click', () => this.feed());
-        this.playBtn.addEventListener('click', () => this.play());
-        this.sleepBtn.addEventListener('click', () => this.sleep());
-        this.healBtn.addEventListener('click', () => this.heal());
-        this.bathBtn.addEventListener('click', () => this.bath());
-        this.trainBtn.addEventListener('click', () => this.train());
+        if (this.feedBtn) this.feedBtn.addEventListener('click', () => this.feed());
+        if (this.playBtn) this.playBtn.addEventListener('click', () => this.play());
+        if (this.sleepBtn) this.sleepBtn.addEventListener('click', () => this.sleep());
+        if (this.healBtn) this.healBtn.addEventListener('click', () => this.heal());
+        if (this.bathBtn) this.bathBtn.addEventListener('click', () => this.bath());
+        if (this.trainBtn) this.trainBtn.addEventListener('click', () => this.train());
+        if (this.vetBtn) this.vetBtn.addEventListener('click', () => this.vet());
+        if (this.choreBtn) this.choreBtn.addEventListener('click', () => this.chore());
+        if (this.toyBtn) this.toyBtn.addEventListener('click', () => this.toy());
+        if (this.trickBtn) this.trickBtn.addEventListener('click', () => this.trick());
+        
+        // Tab event listeners
+        if (this.petStatsTab) this.petStatsTab.addEventListener('click', () => this.showTab('stats'));
+        if (this.moneySavingsTab) this.moneySavingsTab.addEventListener('click', () => this.showTab('money'));
+        if (this.activityBadgesTab) this.activityBadgesTab.addEventListener('click', () => this.showTab('activity'));
 
         if (this.pet) {
             this.pet.addEventListener('click', () => this.petPet());
@@ -143,57 +198,33 @@ class VirtualPet {
             this.pet.addEventListener('mouseleave', () => this.pet.classList.remove('curious'));
         }
 
-        // Interactive body parts
-        const ears = document.querySelectorAll('.pet-ear');
-        ears.forEach(ear => {
-            ear.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.scratchEar(ear);
-            });
-        });
-
-        const belly = document.querySelector('.pet-belly');
-        if (belly) {
-            belly.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.tickleBelly();
-            });
-        }
-
-        const nose = document.querySelector('.nose');
-        if (nose) {
-            nose.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.boopNose();
-            });
-        }
-
-        const tail = document.querySelector('.pet-tail');
-        if (tail) {
-            tail.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.playWithTail();
-            });
-        }
+        // Interactive pet emoji - all interactions now on main pet element
+        // (ear, belly, nose, tail interactions removed as we now use emoji-based design)
 
         // Settings and Analytics
-        this.settingsBtn.addEventListener('click', () => this.openSettings());
-        this.analyticsBtn.addEventListener('click', () => this.openAnalytics());
-        this.helpBtn.addEventListener('click', () => this.openHelp());
-        this.closeSettings.addEventListener('click', () => this.closeSettingsModal());
-        this.closeAnalytics.addEventListener('click', () => this.closeAnalyticsModal());
-        this.closeHelp.addEventListener('click', () => this.closeHelpModal());
+        if (this.settingsBtn) this.settingsBtn.addEventListener('click', () => this.openSettings());
+        if (this.analyticsBtn) this.analyticsBtn.addEventListener('click', () => this.openAnalytics());
+        if (this.helpBtn) this.helpBtn.addEventListener('click', () => this.openHelp());
+        if (this.closeSettings) this.closeSettings.addEventListener('click', () => this.closeSettingsModal());
+        if (this.closeAnalytics) this.closeAnalytics.addEventListener('click', () => this.closeAnalyticsModal());
+        if (this.closeHelp) this.closeHelp.addEventListener('click', () => this.closeHelpModal());
 
         // Close modals on outside click
-        this.settingsModal.addEventListener('click', (e) => {
-            if (e.target === this.settingsModal) this.closeSettingsModal();
-        });
-        this.analyticsModal.addEventListener('click', (e) => {
-            if (e.target === this.analyticsModal) this.closeAnalyticsModal();
-        });
-        this.helpModal.addEventListener('click', (e) => {
-            if (e.target === this.helpModal) this.closeHelpModal();
-        });
+        if (this.settingsModal) {
+            this.settingsModal.addEventListener('click', (e) => {
+                if (e.target === this.settingsModal) this.closeSettingsModal();
+            });
+        }
+        if (this.analyticsModal) {
+            this.analyticsModal.addEventListener('click', (e) => {
+                if (e.target === this.analyticsModal) this.closeAnalyticsModal();
+            });
+        }
+        if (this.helpModal) {
+            this.helpModal.addEventListener('click', (e) => {
+                if (e.target === this.helpModal) this.closeHelpModal();
+            });
+        }
 
         // Pet selection
         document.querySelectorAll('.pet-option').forEach(option => {
@@ -266,11 +297,19 @@ class VirtualPet {
             return;
         }
 
+        const cost = 5;
+        if (this.wallet < cost) {
+            this.showMessage(`Not enough money! Need $${cost}`, true);
+            return;
+        }
+
         if (this.energy < 10) {
             this.showMessage('Your pet is too tired to eat!', true);
             return;
         }
 
+        this.wallet -= cost;
+        this.totalSpent += cost;
         this.hunger = Math.min(100, this.hunger + 30);
         this.happiness = Math.min(100, this.happiness + 5);
         this.energy = Math.max(0, this.energy - 5);
@@ -281,7 +320,8 @@ class VirtualPet {
         setTimeout(() => this.pet.classList.remove('eating'), 500);
         
         this.createParticles('🍖', 'sparkle');
-        this.showMessage('Yum! Your pet enjoyed the meal! 🍖');
+        this.showMessage(`Yum! Your pet enjoyed the meal! (-$${cost})`);
+        this.logActivity('Fed the pet');
         
         this.checkAchievement('firstFeed', 'First Meal! 🍖');
         
@@ -311,6 +351,7 @@ class VirtualPet {
         
         this.createParticles('✨', 'sparkle');
         this.showMessage('Your pet had fun playing! 🎾');
+        this.logActivity('Played with the pet');
         
         this.checkAchievement('firstPlay', 'First Playtime! 🎾');
         
@@ -323,12 +364,14 @@ class VirtualPet {
             this.isSleeping = false;
             this.pet.classList.remove('sleeping');
             this.showMessage('Your pet woke up! ☀️');
+            this.logActivity('Pet woke up');
         } else {
             this.isSleeping = true;
             this.energy = Math.min(100, this.energy + 50);
             this.health = Math.min(100, this.health + 10);
             this.pet.classList.add('sleeping');
             this.showMessage('Your pet is sleeping... Zzz 💤');
+            this.logActivity('Put pet to sleep');
         }
         this.updateDisplay();
         this.saveGame();
@@ -356,6 +399,7 @@ class VirtualPet {
         this.healCount++;
         
         this.showMessage('Your pet feels better! 💊');
+        this.logActivity('Used healing medicine');
         this.updateDisplay();
         this.saveGame();
     }
@@ -366,18 +410,27 @@ class VirtualPet {
             return;
         }
 
+        const cost = 8;
+        if (this.wallet < cost) {
+            this.showMessage(`Not enough money! Need $${cost}`, true);
+            return;
+        }
+
         if (this.energy < 10) {
             this.showMessage('Your pet is too tired!', true);
             return;
         }
 
+        this.wallet -= cost;
+        this.totalSpent += cost;
         this.happiness = Math.min(100, this.happiness + 15);
         this.health = Math.min(100, this.health + 5);
         this.energy = Math.max(0, this.energy - 10);
         this.addExperience(5);
         this.bathCount++;
         
-        this.showMessage('Your pet is clean and happy! 🛁');
+        this.showMessage(`Your pet is clean and happy! (-$${cost})`);
+        this.logActivity('Gave the pet a bath');
         this.updateDisplay();
         this.saveGame();
     }
@@ -400,6 +453,151 @@ class VirtualPet {
         this.trainCount++;
         
         this.showMessage('Your pet trained hard! 🏋️');
+        this.logActivity('Trained the pet');
+        this.updateDisplay();
+        this.saveGame();
+    }
+
+    vet() {
+        if (this.isSleeping) {
+            this.showMessage('Your pet is sleeping! Zzz...', true);
+            return;
+        }
+
+        const cost = 25;
+        if (this.wallet < cost) {
+            this.showMessage(`Not enough money! Need $${cost}`, true);
+            return;
+        }
+
+        this.wallet -= cost;
+        this.totalSpent += cost;
+        this.health = 100;
+        this.happiness = Math.min(100, this.happiness + 15);
+        this.energy = Math.max(0, this.energy - 10);
+        this.addExperience(12);
+        this.vetCount++;
+        
+        this.pet.classList.add('healing');
+        setTimeout(() => this.pet.classList.remove('healing'), 800);
+        
+        this.createParticles('💉', 'sparkle');
+        this.showMessage(`Vet visit complete! Full health restored! (-$${cost})`);
+        this.logActivity('Visited the vet');
+        this.checkBadge('veterinarian', this.vetCount >= 10, 'Veterinarian: 10 vet visits! 🏥');
+        
+        this.updateDisplay();
+        this.saveGame();
+    }
+
+    chore() {
+        if (this.isSleeping) {
+            this.showMessage('Your pet is sleeping! Zzz...', true);
+            return;
+        }
+
+        if (this.energy < 20) {
+            this.showMessage('Your pet is too tired for chores!', true);
+            return;
+        }
+
+        const earnings = Math.floor(Math.random() * 15) + 10; // $10-$24
+        this.wallet += earnings;
+        this.totalEarned += earnings;
+        this.energy = Math.max(0, this.energy - 20);
+        this.hunger = Math.max(0, this.hunger - 8);
+        this.happiness = Math.min(100, this.happiness + 5);
+        this.addExperience(15);
+        this.choreCount++;
+        
+        this.pet.classList.add('working');
+        setTimeout(() => this.pet.classList.remove('working'), 1000);
+        
+        this.createParticles('💰', 'sparkle');
+        this.showMessage(`Chore completed! Earned $${earnings}! 🧹`);
+        this.logActivity(`Did chores and earned $${earnings}`);
+        this.checkBadge('caretaker', this.choreCount >= 20, 'Caretaker: 20 chores done! 🧹');
+        
+        this.updateDisplay();
+        this.saveGame();
+    }
+
+    toy() {
+        if (this.isSleeping) {
+            this.showMessage('Your pet is sleeping! Zzz...', true);
+            return;
+        }
+
+        const cost = 15;
+        if (this.wallet < cost) {
+            this.showMessage(`Not enough money! Need $${cost}`, true);
+            return;
+        }
+
+        if (this.energy < 15) {
+            this.showMessage('Your pet is too tired to play with toys!', true);
+            return;
+        }
+
+        this.wallet -= cost;
+        this.totalSpent += cost;
+        this.happiness = Math.min(100, this.happiness + 30);
+        this.energy = Math.max(0, this.energy - 15);
+        this.hunger = Math.max(0, this.hunger - 5);
+        this.addExperience(12);
+        this.toyCount++;
+        
+        this.pet.classList.add('playing');
+        setTimeout(() => this.pet.classList.remove('playing'), 1200);
+        
+        this.createParticles('🧸', 'sparkle');
+        this.createParticles('🎈', 'sparkle');
+        this.showMessage(`New toy! Your pet loves it! (-$${cost})`);
+        this.logActivity('Bought a new toy');
+        this.checkBadge('player', this.toyCount >= 15, 'Player: 15 toys bought! 🧸');
+        
+        this.updateDisplay();
+        this.saveGame();
+    }
+
+    trick() {
+        if (this.isSleeping) {
+            this.showMessage('Your pet is sleeping! Zzz...', true);
+            return;
+        }
+
+        if (this.energy < 25) {
+            this.showMessage('Your pet is too tired to perform tricks!', true);
+            return;
+        }
+
+        if (this.level < 3) {
+            this.showMessage('Your pet needs to be Level 3+ to learn tricks!', true);
+            return;
+        }
+
+        const earnings = Math.floor(Math.random() * 20) + 20; // $20-$39
+        this.wallet += earnings;
+        this.totalEarned += earnings;
+        this.happiness = Math.min(100, this.happiness + 20);
+        this.energy = Math.max(0, this.energy - 25);
+        this.hunger = Math.max(0, this.hunger - 10);
+        this.addExperience(25);
+        this.trickCount++;
+        
+        this.pet.classList.add('trick-performing');
+        setTimeout(() => this.pet.classList.remove('trick-performing'), 1500);
+        
+        this.createParticles('✨', 'sparkle');
+        this.createParticles('🌟', 'sparkle');
+        this.createParticles('🎭', 'sparkle');
+        
+        const tricks = ['Rolled over!', 'Did a backflip!', 'Played dead!', 'Jumped through hoops!', 'Danced!'];
+        const trick = tricks[Math.floor(Math.random() * tricks.length)];
+        this.showMessage(`Amazing trick! ${trick} Earned $${earnings}! 🎪`);
+        this.logActivity(`Performed a trick and earned $${earnings}`);
+        this.checkBadge('trainer', this.trickCount >= 25, 'Trick Master: 25 tricks performed! 🎪');
+        
         this.updateDisplay();
         this.saveGame();
     }
@@ -409,6 +607,189 @@ class VirtualPet {
         this.totalXP += amount;
         if (this.experience >= this.expToNextLevel) {
             this.levelUp();
+        }
+    }
+
+    logActivity(description) {
+        const timestamp = new Date().toLocaleTimeString();
+        this.activityLog.unshift({
+            description: description,
+            time: timestamp,
+            date: new Date()
+        });
+        
+        // Keep only last 50 activities
+        if (this.activityLog.length > 50) {
+            this.activityLog = this.activityLog.slice(0, 50);
+        }
+    }
+
+    checkBadge(badgeId, condition, message) {
+        if (!this.badges[badgeId] && condition) {
+            this.badges[badgeId] = true;
+            this.showAchievement(message);
+            this.saveGame();
+        }
+    }
+
+    earnMoney(amount) {
+        this.wallet += amount;
+        this.totalEarned += amount;
+        this.checkBadge('millionaire', this.totalEarned >= 1000, 'Millionaire: Earned $1000! 💰');
+        this.updateDisplay();
+    }
+
+    spendMoney(amount) {
+        if (this.wallet >= amount) {
+            this.wallet -= amount;
+            this.totalSpent += amount;
+            this.checkBadge('spender', this.totalSpent >= 500, 'Big Spender: Spent $500! 💸');
+            this.updateDisplay();
+            return true;
+        }
+        return false;
+    }
+
+    depositToSavings(amount) {
+        if (this.wallet >= amount) {
+            this.wallet -= amount;
+            this.saved += amount;
+            this.showMessage(`Saved $${amount}! 🏦`);
+            this.checkBadge('saver', this.saved >= this.savingsGoal, 'Savings Goal Reached! 🎯');
+            this.updateDisplay();
+            this.saveGame();
+            return true;
+        } else {
+            this.showMessage('Not enough money in wallet!', true);
+            return false;
+        }
+    }
+
+    withdrawFromSavings(amount) {
+        if (this.saved >= amount) {
+            this.saved -= amount;
+            this.wallet += amount;
+            this.showMessage(`Withdrew $${amount}! 💵`);
+            this.updateDisplay();
+            this.saveGame();
+            return true;
+        } else {
+            this.showMessage('Not enough in savings!', true);
+            return false;
+        }
+    }
+
+    showTab(tabName) {
+        // Hide all tab contents
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Remove active class from all tab buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Show selected tab
+        if (tabName === 'stats') {
+            document.getElementById('statsContent').classList.add('active');
+            this.petStatsTab.classList.add('active');
+        } else if (tabName === 'money') {
+            document.getElementById('moneyContent').classList.add('active');
+            this.moneySavingsTab.classList.add('active');
+            this.updateMoneyDisplay();
+        } else if (tabName === 'activity') {
+            document.getElementById('activityContent').classList.add('active');
+            this.activityBadgesTab.classList.add('active');
+            this.updateActivityDisplay();
+        }
+    }
+
+    updateMoneyDisplay() {
+        if (this.walletDisplay) this.walletDisplay.textContent = `$${this.wallet.toFixed(2)}`;
+        if (this.earnedDisplay) this.earnedDisplay.textContent = `$${this.totalEarned.toFixed(2)}`;
+        if (this.spentDisplay) this.spentDisplay.textContent = `$${this.totalSpent.toFixed(2)}`;
+        if (this.savingsGoalDisplay) this.savingsGoalDisplay.textContent = `$${this.savingsGoal}`;
+        if (this.savedDisplay) this.savedDisplay.textContent = `$${this.saved.toFixed(2)}`;
+        
+        // Update spending bar
+        const spendingBar = document.getElementById('spendingBar');
+        const spendingLimit = 200;
+        if (spendingBar) {
+            const percentage = Math.min(100, (this.totalSpent / spendingLimit) * 100);
+            spendingBar.style.width = `${percentage}%`;
+            document.getElementById('spendingText').textContent = `$${this.totalSpent.toFixed(2)} / $${spendingLimit}`;
+        }
+        
+        // Update savings progress bar
+        const savingsBar = document.getElementById('savingsProgressBar');
+        if (savingsBar) {
+            const percentage = Math.min(100, (this.saved / this.savingsGoal) * 100);
+            savingsBar.style.width = `${percentage}%`;
+        }
+    }
+
+    updateActivityDisplay() {
+        // Update activity log
+        const activityLogElement = document.getElementById('activityLog');
+        if (activityLogElement) {
+            activityLogElement.innerHTML = '';
+            if (this.activityLog.length === 0) {
+                activityLogElement.innerHTML = '<div class="no-activity">No recent activities</div>';
+            } else {
+                this.activityLog.slice(0, 10).forEach(activity => {
+                    const activityItem = document.createElement('div');
+                    activityItem.className = 'activity-item';
+                    activityItem.innerHTML = `
+                        <span class="activity-time">${activity.time}</span>
+                        <span class="activity-desc">${activity.description}</span>
+                    `;
+                    activityLogElement.appendChild(activityItem);
+                });
+            }
+        }
+        
+        // Update badges
+        const badgeGrid = document.getElementById('badgeGrid');
+        if (badgeGrid) {
+            badgeGrid.innerHTML = '';
+            const badgeInfo = {
+                earlyBird: { icon: '🌅', name: 'Early Bird', desc: 'Interact before 6 AM' },
+                nightOwl: { icon: '🦉', name: 'Night Owl', desc: 'Interact after 10 PM' },
+                caretaker: { icon: '🧹', name: 'Caretaker', desc: 'Complete 20 chores' },
+                millionaire: { icon: '💰', name: 'Millionaire', desc: 'Earn $1000 total' },
+                saver: { icon: '🏦', name: 'Saver', desc: 'Reach savings goal' },
+                spender: { icon: '💸', name: 'Big Spender', desc: 'Spend $500 total' },
+                trainer: { icon: '🎪', name: 'Trick Master', desc: 'Perform 25 tricks' },
+                veterinarian: { icon: '🏥', name: 'Veterinarian', desc: '10 vet visits' },
+                cleaner: { icon: '🛁', name: 'Cleaner', desc: '30 baths given' },
+                player: { icon: '🧸', name: 'Player', desc: 'Buy 15 toys' }
+            };
+            
+            Object.keys(badgeInfo).forEach(badgeId => {
+                const badge = badgeInfo[badgeId];
+                const isUnlocked = this.badges[badgeId];
+                const badgeElement = document.createElement('div');
+                badgeElement.className = `badge-item ${isUnlocked ? 'unlocked' : 'locked'}`;
+                badgeElement.innerHTML = `
+                    <div class="badge-icon">${badge.icon}</div>
+                    <div class="badge-name">${badge.name}</div>
+                    <div class="badge-desc">${badge.desc}</div>
+                `;
+                badgeGrid.appendChild(badgeElement);
+            });
+        }
+        
+        // Check time-based badges
+        const hour = new Date().getHours();
+        if (hour < 6) {
+            this.checkBadge('earlyBird', true, 'Early Bird: Active before 6 AM! 🌅');
+        }
+        if (hour >= 22) {
+            this.checkBadge('nightOwl', true, 'Night Owl: Active after 10 PM! 🦉');
+        }
+        if (this.bathCount >= 30) {
+            this.checkBadge('cleaner', true, 'Cleaner: 30 baths given! 🛁');
         }
     }
 
@@ -454,6 +835,70 @@ class VirtualPet {
         }
     }
 
+    updatePetEmoji() {
+        if (!this.petEmoji) return;
+        
+        // If sleeping, show sleeping emoji
+        if (this.isSleeping) {
+            this.petEmoji.textContent = '😴';
+        } else {
+            const petEmojis = {
+                dog: '🐶',
+                cat: '🐱',
+                bird: '🐦',
+                rabbit: '🐰',
+                fox: '🦊',
+                bear: '🐻'
+            };
+            this.petEmoji.textContent = petEmojis[this.petType] || '🐶';
+        }
+        
+        // Update mood badge
+        if (this.moodBadge) {
+            const moodEmojis = {
+                happy: '😊',
+                okay: '😐',
+                sad: '😢',
+                critical: '😰'
+            };
+            this.moodBadge.textContent = moodEmojis[this.mood] || '😊';
+        }
+    }
+
+    updatePetInfo() {
+        // Update pet details display
+        if (this.petStageDisplay) {
+            this.petStageDisplay.textContent = `Age: ${this.growthStage.charAt(0).toUpperCase() + this.growthStage.slice(1)}`;
+        }
+        if (this.petTypeDisplay) {
+            this.petTypeDisplay.textContent = `Type: ${this.petType}`;
+        }
+        if (this.petLevelDisplay) {
+            this.petLevelDisplay.textContent = `Level ${this.level}`;
+        }
+        if (this.petExpDisplay) {
+            this.petExpDisplay.textContent = `EXP ${this.experience}/${this.expToNextLevel}`;
+        }
+        
+        // Update mood display with text
+        if (this.moodEmojiDisplay && this.moodTextDisplay) {
+            const moodEmojis = {
+                happy: '😊',
+                okay: '😐',
+                sad: '😢',
+                critical: '😰'
+            };
+            const moodTexts = {
+                happy: 'Super happy!',
+                okay: 'Doing okay',
+                sad: 'Feeling sad',
+                critical: 'Needs help!'
+            };
+            this.moodEmojiDisplay.textContent = moodEmojis[this.mood] || '😊';
+            this.moodTextDisplay.textContent = moodTexts[this.mood] || 'Happy';
+        }
+    }
+
     updateDisplay() {
         // Update bars
         this.healthBar.style.width = `${this.health}%`;
@@ -475,11 +920,16 @@ class VirtualPet {
         // Update mood
         this.updateMood();
         
+        // Update pet emoji and displays
+        this.updatePetEmoji();
+        this.updatePetInfo();
+        
         // Update bar colors based on values
         this.updateBarColors();
 
         this.updateThoughtBubble();
         this.updateEnvironment();
+        this.updateMoneyDisplay();
     }
 
     updateBarColors() {
@@ -700,6 +1150,18 @@ class VirtualPet {
         // Add visual cues based on stage
         this.pet.classList.remove('stage-baby', 'stage-child', 'stage-teen', 'stage-adult', 'stage-elder');
         this.pet.classList.add(`stage-${this.growthStage}`);
+        
+        // Update emoji size based on growth
+        if (this.petEmoji) {
+            const emojiSizes = {
+                baby: '140px',
+                child: '150px',
+                teen: '160px',
+                adult: '170px',
+                elder: '175px'
+            };
+            this.petEmoji.style.fontSize = emojiSizes[this.growthStage] || '160px';
+        }
     }
 
     announceGrowth() {
@@ -803,6 +1265,10 @@ class VirtualPet {
         document.getElementById('statHealCount').textContent = this.healCount;
         document.getElementById('statBathCount').textContent = this.bathCount;
         document.getElementById('statTrainCount').textContent = this.trainCount;
+        document.getElementById('statVetCount').textContent = this.vetCount;
+        document.getElementById('statChoreCount').textContent = this.choreCount;
+        document.getElementById('statToyCount').textContent = this.toyCount;
+        document.getElementById('statTrickCount').textContent = this.trickCount;
 
         // Time statistics
         document.getElementById('statAge').textContent = this.age;
@@ -831,7 +1297,7 @@ class VirtualPet {
         document.getElementById('statAvgHappiness').textContent = `${Math.round(this.happiness)}%`;
         document.getElementById('statAvgHealth').textContent = `${Math.round(this.health)}%`;
         
-        const totalInteractions = this.petCount + this.feedCount + this.playCount + this.healCount + this.bathCount + this.trainCount;
+        const totalInteractions = this.petCount + this.feedCount + this.playCount + this.healCount + this.bathCount + this.trainCount + this.vetCount + this.choreCount + this.toyCount + this.trickCount;
         const interactionsPerDay = this.age > 0 ? Math.round(totalInteractions / this.age) : totalInteractions;
         document.getElementById('statInteractionsPerDay').textContent = interactionsPerDay;
         document.getElementById('statTotalXP').textContent = this.totalXP;
@@ -907,81 +1373,9 @@ class VirtualPet {
         // Add current pet type class
         this.pet.classList.add(`pet-${this.petType}`);
         
-        // Update color scheme and features based on pet type
-        const petColors = {
-            dog: { 
-                primary: '#ffce59', 
-                secondary: '#ffa94d', 
-                belly: 'rgba(255, 255, 255, 0.35)',
-                nose: '#000',
-                earInner: '#ffb4d3'
-            },
-            cat: { 
-                primary: '#f5d6b8', 
-                secondary: '#e8b88c', 
-                belly: 'rgba(255, 255, 255, 0.4)',
-                nose: '#ffb4d3',
-                earInner: '#ffc0cb'
-            },
-            bird: { 
-                primary: '#7dd3fc', 
-                secondary: '#38bdf8', 
-                belly: 'rgba(255, 255, 255, 0.6)',
-                nose: '#f59e0b',
-                earInner: '#38bdf8'
-            },
-            rabbit: { 
-                primary: '#f5f5f5', 
-                secondary: '#e8e8e8', 
-                belly: 'rgba(255, 192, 203, 0.4)',
-                nose: '#ffb4d3',
-                earInner: '#ffb4d3'
-            },
-            fox: { 
-                primary: '#ff8c42', 
-                secondary: '#ff6b35', 
-                belly: 'rgba(255, 255, 255, 0.5)',
-                nose: '#000',
-                earInner: '#fff'
-            },
-            bear: { 
-                primary: '#8b6f47', 
-                secondary: '#6b5435', 
-                belly: 'rgba(222, 184, 135, 0.6)',
-                nose: '#000',
-                earInner: '#8b6f47'
-            }
-        };
-        
-        const colors = petColors[this.petType];
-        const body = this.pet.querySelector('.pet-body');
-        const tail = this.pet.querySelector('.pet-tail');
-        const ears = this.pet.querySelectorAll('.pet-ear');
-        const earInners = this.pet.querySelectorAll('.ear-inner');
-        const belly = this.pet.querySelector('.pet-belly');
-        const nose = this.pet.querySelector('.nose');
-        
-        if (body) {
-            body.style.background = `radial-gradient(circle at 30% 30%, ${colors.primary}, ${colors.secondary} 70%)`;
-        }
-        if (tail) {
-            tail.style.background = colors.secondary;
-        }
-        ears.forEach(ear => {
-            ear.style.background = colors.secondary;
-        });
-        earInners.forEach(earInner => {
-            earInner.style.background = colors.earInner;
-        });
-        if (belly) {
-            belly.style.background = colors.belly;
-        }
-        if (nose) {
-            nose.style.background = colors.nose;
-        }
-        
-        // Update idle behavior timing for pet type
-        this.updateIdleBehavior();
+        // Update the emoji display
+        this.updatePetEmoji();
+        this.updatePetInfo();
     }
 
     updateIdleBehavior() {
@@ -1069,7 +1463,18 @@ class VirtualPet {
             createdDate: this.createdDate,
             totalTimePlayed: this.totalTimePlayed,
             achievements: this.achievements,
-            settings: this.settings
+            settings: this.settings,
+            vetCount: this.vetCount,
+            choreCount: this.choreCount,
+            toyCount: this.toyCount,
+            trickCount: this.trickCount,
+            wallet: this.wallet,
+            totalEarned: this.totalEarned,
+            totalSpent: this.totalSpent,
+            savingsGoal: this.savingsGoal,
+            saved: this.saved,
+            badges: this.badges,
+            activityLog: this.activityLog
         };
             
         localStorage.setItem('pixelPawSave', JSON.stringify(gameData));
@@ -1107,6 +1512,17 @@ class VirtualPet {
                 this.totalTimePlayed = gameData.totalTimePlayed || 0;
                 this.achievements = gameData.achievements || this.achievements;
                 this.settings = gameData.settings || this.settings;
+                this.vetCount = gameData.vetCount || 0;
+                this.choreCount = gameData.choreCount || 0;
+                this.toyCount = gameData.toyCount || 0;
+                this.trickCount = gameData.trickCount || 0;
+                this.wallet = gameData.wallet || 100;
+                this.totalEarned = gameData.totalEarned || 100;
+                this.totalSpent = gameData.totalSpent || 0;
+                this.savingsGoal = gameData.savingsGoal || 100;
+                this.saved = gameData.saved || 0;
+                this.badges = gameData.badges || this.badges;
+                this.activityLog = gameData.activityLog || [];
                 
                 this.petNameDisplay.textContent = this.name;
                 if (this.isSleeping) {
@@ -1176,23 +1592,6 @@ class VirtualPet {
         }
     }
 
-    handleEyeTracking(e) {
-        if (this.isSleeping || !this.leftPupil || !this.rightPupil) return;
-
-        const petRect = this.pet.getBoundingClientRect();
-        const petCenterX = petRect.left + petRect.width / 2;
-        const petCenterY = petRect.top + petRect.height / 2;
-
-        const angleLeft = Math.atan2(e.clientY - petCenterY, e.clientX - petCenterX);
-        const angleRight = Math.atan2(e.clientY - petCenterY, e.clientX - petCenterX);
-
-        const maxMove = this.eyeFollowStrength;
-        const moveX = Math.cos(angleLeft) * maxMove;
-        const moveY = Math.sin(angleLeft) * maxMove;
-
-        this.leftPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        this.rightPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    }
 
     updateThoughtBubble() {
         if (!this.thoughtBubble) return;
@@ -1322,8 +1721,7 @@ class VirtualPet {
     }
 
     startAmbientInteractions() {
-        // Enable eye tracking
-        document.addEventListener('mousemove', this.handleEyeTracking);
+        // Pet emoji and mood updates handled in updateDisplay()
 
         // Initialize behaviors
         this.updateIdleBehavior();

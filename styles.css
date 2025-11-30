@@ -161,8 +161,9 @@ header h1 {
 
 .pet-scene {
     position: relative;
-    width: 260px;
-    height: 260px;
+    width: 100%;
+    max-width: 400px;
+    min-height: 450px;
     margin: 0 auto 20px;
     perspective: 800px;
 }
@@ -277,11 +278,15 @@ header h1 {
 }
 
 .pet {
-    width: 220px;
-    height: 240px;
+    width: 100%;
+    max-width: 350px;
     margin: 0 auto;
     position: relative;
     transition: transform 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 /* Breathing animation - makes pet feel alive */
@@ -522,11 +527,96 @@ header h1 {
     right: 10px;
 }
 
+/* Circular Pet Border with Glow */
+.pet-circle-border {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4ade80, #22c55e, #16a34a);
+    padding: 8px;
+    box-shadow: 
+        0 0 20px rgba(74, 222, 128, 0.6),
+        0 0 40px rgba(74, 222, 128, 0.4),
+        0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: glowPulse 3s ease-in-out infinite;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.pet-circle-border:hover {
+    transform: scale(1.05);
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px rgba(74, 222, 128, 0.6),
+            0 0 40px rgba(74, 222, 128, 0.4),
+            0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 30px rgba(74, 222, 128, 0.8),
+            0 0 60px rgba(74, 222, 128, 0.6),
+            0 10px 40px rgba(0, 0, 0, 0.4);
+    }
+}
+
+.pet-emoji-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: visible;
+}
+
+.pet-emoji {
+    font-size: 160px;
+    line-height: 1;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+    animation: petBounce 2s ease-in-out infinite;
+}
+
+@keyframes petBounce {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-8px) scale(1.02);
+    }
+}
+
+.mood-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 48px;
+    background: white;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 4px solid #f0f0f0;
+}
+
+.pet-info {
+    text-align: center;
+    width: 100%;
+}
+
 .pet-name-display {
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: bold;
     color: #8b9aff;
-    margin-top: 10px;
+    margin-bottom: 8px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -535,10 +625,49 @@ header h1 {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.pet-details {
+    font-size: 0.95em;
+    color: #a0a0a0;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.container.theme-light .pet-details {
+    color: #666;
+}
+
+.pet-stage, .pet-type-display, .pet-level, .pet-exp {
+    font-weight: 500;
+}
+
+.pet-mood-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(139, 154, 255, 0.15);
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin-top: 8px;
+}
+
+.mood-emoji {
+    font-size: 1.3em;
+}
+
+.mood-text {
+    font-weight: 600;
+    color: #8b9aff;
+}
+
+.container.theme-light .mood-text {
+    color: #667eea;
+}
+
 .thought-bubble {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    left: -200px;
+    top: 50%;
+    transform: translateY(-50%) translateX(-10px);
     background: rgba(255, 255, 255, 0.95);
     border-radius: 30px;
     padding: 8px 14px;
@@ -548,7 +677,6 @@ header h1 {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     border: 2px solid rgba(255, 255, 255, 0.7);
     opacity: 0;
-    transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     z-index: 3;
 }
@@ -560,16 +688,16 @@ header h1 {
     background: inherit;
     border: inherit;
     position: absolute;
-    bottom: -6px;
-    right: 20px;
-    transform: rotate(45deg);
+    top: 50%;
+    right: -6px;
+    transform: translateY(-50%) rotate(45deg);
     border-left: none;
     border-top: none;
 }
 
 .thought-bubble.show {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-50%) translateX(0);
 }
 
 .bubble-emoji {
@@ -679,7 +807,7 @@ header h1 {
 
 .action-buttons {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
@@ -844,11 +972,11 @@ header h1 {
     }
 }
 
-.pet.petting .pet-body {
+.pet.petting .pet-circle-border {
     animation: squeeze 0.6s ease;
 }
 
-.pet.idle-wiggle .pet-body {
+.pet.idle-wiggle .pet-circle-border {
     animation: wiggle 0.8s ease;
 }
 
@@ -1068,13 +1196,28 @@ header h1 {
     animation: pulse 1s alternate;
 }
 
-.pet.sleeping .eye {
-    height: 4px;
-    animation: none;
+.pet.sleeping .pet-emoji {
+    opacity: 0.7;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2)) brightness(0.9);
 }
 
-.pet.sleeping .pupil {
-    opacity: 0;
+.pet.sleeping .pet-circle-border {
+    animation: glowPulseSlow 4s ease-in-out infinite;
+}
+
+@keyframes glowPulseSlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 15px rgba(74, 222, 128, 0.3),
+            0 0 30px rgba(74, 222, 128, 0.2),
+            0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 20px rgba(74, 222, 128, 0.4),
+            0 0 40px rgba(74, 222, 128, 0.3),
+            0 10px 30px rgba(0, 0, 0, 0.3);
+    }
 }
 
 .pet.sleeping .thought-bubble .bubble-text {
@@ -1254,35 +1397,28 @@ body.night-mode .container {
 }
 
 /* Growth stage visuals */
-.pet.stage-baby {
-    filter: brightness(1.1);
+.pet.stage-baby .pet-circle-border {
+    background: linear-gradient(135deg, #4ade80, #22c55e, #16a34a);
 }
 
-.pet.stage-baby .pet-body {
-    box-shadow: 0 15px 30px rgba(255, 170, 68, 0.3);
+.pet.stage-child .pet-circle-border {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6, #2563eb);
 }
 
-.pet.stage-child .pet-body {
-    box-shadow: 0 15px 30px rgba(255, 170, 68, 0.35);
+.pet.stage-teen .pet-circle-border {
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6, #7c3aed);
 }
 
-.pet.stage-teen .pet-body {
-    box-shadow: 0 18px 35px rgba(255, 170, 68, 0.4);
-    background: radial-gradient(circle at 30% 30%, #ffe98a, #ffce59 70%, #ffaa42 100%);
+.pet.stage-adult .pet-circle-border {
+    background: linear-gradient(135deg, #f59e0b, #d97706, #b45309);
 }
 
-.pet.stage-adult .pet-body {
-    box-shadow: 0 20px 40px rgba(255, 170, 68, 0.45);
-    background: radial-gradient(circle at 30% 30%, #ffe98a, #ffb347 70%, #ff9030 100%);
-}
-
-.pet.stage-elder .pet-body {
-    box-shadow: 0 22px 45px rgba(255, 170, 68, 0.5);
-    background: radial-gradient(circle at 30% 30%, #ffeaa7, #fdcb6e 70%, #f39c12 100%);
-}
-
-.pet.stage-elder .pet-ear {
-    opacity: 0.95;
+.pet.stage-elder .pet-circle-border {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+    box-shadow: 
+        0 0 30px rgba(251, 191, 36, 0.8),
+        0 0 60px rgba(251, 191, 36, 0.6),
+        0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
 /* Interactive body parts - make them more obvious */
@@ -1856,14 +1992,20 @@ body.night-mode .container {
     font-weight: bold;
 }
 
-/* Pet Type Specific Styles - Much More Realistic */
+/* Pet Type Specific Styles - Much More Realistic & Distinctive */
 
-/* DOG - Friendly Puppy */
+/* DOG - Golden Retriever Style */
+.pet-dog .pet-body {
+    background: radial-gradient(circle at 30% 30%, #f4d03f, #e8a838 70%);
+    border-radius: 80px;
+}
+
 .pet-dog .pet-ear {
-    width: 50px;
-    height: 70px;
+    width: 55px;
+    height: 75px;
     border-radius: 15px 15px 40px 40px;
     top: -15px;
+    background: linear-gradient(135deg, #d4a036, #b8882e);
 }
 
 .pet-dog .left-ear {
@@ -1895,11 +2037,32 @@ body.night-mode .container {
     50% { transform: rotate(-20deg); }
 }
 
-/* CAT - Sleek Feline */
+/* CAT - Sleek Tabby Style */
 .pet-cat .pet-body {
     border-radius: 70px;
     width: 165px;
     height: 185px;
+    background: radial-gradient(circle at 30% 30%, #d4b896, #b89a7a 70%);
+    position: relative;
+}
+
+/* Cat stripes */
+.pet-cat .pet-body::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 15px,
+        rgba(0, 0, 0, 0.08) 15px,
+        rgba(0, 0, 0, 0.08) 20px
+    );
+    border-radius: inherit;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 .pet-cat .pet-ear {
@@ -1933,11 +2096,17 @@ body.night-mode .container {
     50% { transform: rotate(-15deg); }
 }
 
-/* BIRD - Cute Chick */
+/* BIRD - Bright Blue Bird */
 .pet-bird .pet-body {
     border-radius: 50% 50% 60% 60%;
     width: 160px;
     height: 175px;
+    background: radial-gradient(circle at 30% 30%, #87ceeb, #4a9fd8 70%);
+    box-shadow: 0 15px 30px rgba(74, 159, 216, 0.4);
+}
+
+.pet-bird .pet-face {
+    background: linear-gradient(135deg, #b3dff5, #87ceeb);
 }
 
 .pet-bird .pet-ear {
@@ -1995,11 +2164,22 @@ body.night-mode .container {
     50% { transform: translateY(-8px) rotate(-25deg); }
 }
 
-/* RABBIT - Long-Eared Bunny */
+/* RABBIT - Fluffy White Bunny */
 .pet-rabbit .pet-body {
     width: 175px;
     height: 180px;
     border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #f5f5f5 70%);
+    box-shadow: 0 15px 30px rgba(200, 200, 200, 0.4);
+    border: 4px solid rgba(245, 245, 245, 0.8);
+}
+
+.pet-rabbit .pet-face {
+    background: #fafafa;
+}
+
+.pet-rabbit .pet-belly {
+    background: rgba(255, 192, 203, 0.3);
 }
 
 .pet-rabbit .pet-ear {
@@ -2047,10 +2227,21 @@ body.night-mode .container {
     50% { transform: translateX(-50%) scaleX(1.2); }
 }
 
-/* FOX - Cunning Red Fox */
+/* FOX - Orange Red Fox */
 .pet-fox .pet-body {
     border-radius: 65px;
     width: 168px;
+    background: radial-gradient(circle at 30% 30%, #ff8c42, #ff6b35 70%);
+    box-shadow: 0 15px 30px rgba(255, 107, 53, 0.4);
+}
+
+.pet-fox .pet-belly {
+    background: rgba(255, 255, 255, 0.6);
+    width: 100px;
+}
+
+.pet-fox .pet-face {
+    background: linear-gradient(135deg, #ffb380, #ff8c42);
 }
 
 .pet-fox .pet-ear {
@@ -2085,11 +2276,22 @@ body.night-mode .container {
     50% { transform: rotate(-10deg); }
 }
 
-/* BEAR - Cuddly Teddy */
+/* BEAR - Brown Teddy Bear */
 .pet-bear .pet-body {
     width: 180px;
     height: 195px;
     border-radius: 60px;
+    background: radial-gradient(circle at 30% 30%, #8b6f47, #6b5435 70%);
+    box-shadow: 0 20px 40px rgba(107, 84, 53, 0.5);
+}
+
+.pet-bear .pet-belly {
+    background: rgba(222, 184, 135, 0.7);
+    width: 120px;
+}
+
+.pet-bear .pet-face {
+    background: linear-gradient(135deg, #a98b5f, #8b6f47);
 }
 
 .pet-bear .pet-ear {
@@ -2127,6 +2329,133 @@ body.night-mode .container {
 .pet-bear .nose {
     width: 20px;
     height: 15px;
+}
+
+/* Enhanced Pet Type Distinctions - Face Features */
+
+/* Dog specific features */
+.pet-dog .nose {
+    background: #000;
+    width: 18px;
+    height: 14px;
+}
+
+.pet-dog .mouth-smile {
+    border-width: 4px;
+    border-color: #5a4020;
+}
+
+/* Cat specific features */
+.pet-cat .eye {
+    width: 20px;
+    height: 28px;
+    border-radius: 50% 50% 40% 40%;
+}
+
+.pet-cat .nose {
+    background: #ffb4d3;
+    width: 14px;
+    height: 11px;
+}
+
+.pet-cat .mouth-smile {
+    border-width: 2px;
+    width: 50px;
+}
+
+/* Bird specific features */
+.pet-bird .eye {
+    width: 28px;
+    height: 28px;
+    background: #fff;
+    border: 3px solid #333;
+}
+
+.pet-bird .eye .pupil {
+    background: #222;
+    width: 14px;
+    height: 14px;
+    border: none;
+}
+
+.pet-bird .nose {
+    background: #f59e0b;
+    width: 22px;
+    height: 16px;
+    clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+    border-radius: 0;
+}
+
+.pet-bird .mouth {
+    display: none;
+}
+
+/* Rabbit specific features */
+.pet-rabbit .eye {
+    width: 20px;
+    height: 24px;
+    background: #ff69b4;
+    border-radius: 50%;
+}
+
+.pet-rabbit .eye .pupil {
+    background: #000;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #fff;
+}
+
+.pet-rabbit .nose {
+    background: #ffb4d3;
+    width: 14px;
+    height: 12px;
+}
+
+.pet-rabbit .mouth-smile {
+    border-width: 2px;
+    width: 40px;
+    height: 20px;
+}
+
+/* Fox specific features */
+.pet-fox .eye {
+    width: 26px;
+    height: 26px;
+    background: #ffd700;
+}
+
+.pet-fox .eye .pupil {
+    width: 8px;
+    height: 16px;
+    border-radius: 50%;
+    background: #000;
+}
+
+.pet-fox .nose {
+    background: #000;
+    width: 16px;
+    height: 13px;
+}
+
+.pet-fox .mouth-smile {
+    border-width: 3px;
+    width: 55px;
+}
+
+/* Bear specific features */
+.pet-bear .eye {
+    width: 22px;
+    height: 22px;
+}
+
+.pet-bear .nose {
+    background: #3d2817;
+    border-radius: 50%;
+}
+
+.pet-bear .mouth-smile {
+    border-width: 4px;
+    border-color: #3d2817;
 }
 
 /* Help Modal Styles */
@@ -2390,6 +2719,347 @@ body.night-mode .container {
     font-weight: 500;
 }
 
+/* Tabs System */
+.tabs-container {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(139, 154, 255, 0.2);
+}
+
+.container.theme-light .tabs-container {
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 15px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: #8b9aff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9em;
+}
+
+.container.theme-light .tab-btn {
+    color: #667eea;
+}
+
+.tab-btn:hover {
+    background: rgba(139, 154, 255, 0.1);
+}
+
+.tab-btn.active {
+    border-bottom-color: #8b9aff;
+    background: rgba(139, 154, 255, 0.15);
+}
+
+.container.theme-light .tab-btn.active {
+    border-bottom-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Money & Savings Styles */
+.money-section {
+    padding: 10px 0;
+}
+
+.money-section h3 {
+    color: #8b9aff;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.container.theme-light .money-section h3 {
+    color: #667eea;
+}
+
+.money-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.money-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    border-left: 4px solid #51cf66;
+}
+
+.container.theme-light .money-item {
+    background: white;
+}
+
+.money-label {
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+.container.theme-light .money-label {
+    color: #333;
+}
+
+.money-value {
+    font-weight: bold;
+    color: #51cf66;
+    font-size: 1.1em;
+}
+
+.spending-bar-container,
+.savings-progress-container {
+    flex: 1;
+    margin-left: 15px;
+    position: relative;
+}
+
+.spending-bar,
+.savings-progress-bar {
+    height: 20px;
+    background: linear-gradient(90deg, #ff6b6b, #ffa94d);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    min-width: 2%;
+}
+
+.savings-progress-bar {
+    background: linear-gradient(90deg, #51cf66, #69db7c);
+    height: 100%;
+}
+
+.savings-progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 5px;
+    height: 30px;
+}
+
+.container.theme-light .savings-progress-container {
+    background: #e0e0e0;
+}
+
+.spending-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 0.85em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+}
+
+/* Activity & Badges Styles */
+.activity-section h3 {
+    color: #8b9aff;
+    margin: 20px 0 15px;
+    font-size: 1.2em;
+}
+
+.activity-section h3:first-child {
+    margin-top: 0;
+}
+
+.container.theme-light .activity-section h3 {
+    color: #667eea;
+}
+
+.activity-log {
+    max-height: 250px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.container.theme-light .activity-log {
+    background: #f8f9fa;
+}
+
+.activity-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 8px;
+    background: rgba(139, 154, 255, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid #8b9aff;
+}
+
+.container.theme-light .activity-item {
+    background: white;
+    border-left: 3px solid #667eea;
+}
+
+.activity-time {
+    color: #8b9aff;
+    font-weight: bold;
+    font-size: 0.85em;
+}
+
+.container.theme-light .activity-time {
+    color: #667eea;
+}
+
+.activity-desc {
+    color: #e0e0e0;
+    flex: 1;
+    margin-left: 15px;
+}
+
+.container.theme-light .activity-desc {
+    color: #333;
+}
+
+.no-activity {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-style: italic;
+}
+
+.badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.badge-item {
+    text-align: center;
+    padding: 15px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    border: 2px solid rgba(139, 154, 255, 0.3);
+}
+
+.badge-item.unlocked {
+    background: linear-gradient(135deg, rgba(81, 207, 102, 0.2), rgba(139, 154, 255, 0.2));
+    border-color: #51cf66;
+    transform: scale(1);
+}
+
+.badge-item.unlocked:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(81, 207, 102, 0.4);
+}
+
+.badge-item.locked {
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+
+.container.theme-light .badge-item.locked {
+    background: #e0e0e0;
+}
+
+.badge-icon {
+    font-size: 2.5em;
+    margin-bottom: 8px;
+}
+
+.badge-name {
+    font-weight: bold;
+    color: #8b9aff;
+    margin-bottom: 5px;
+}
+
+.container.theme-light .badge-name {
+    color: #667eea;
+}
+
+.badge-item.unlocked .badge-name {
+    color: #51cf66;
+}
+
+.badge-desc {
+    font-size: 0.8em;
+    color: #b0b0b0;
+}
+
+.container.theme-light .badge-desc {
+    color: #666;
+}
+
+/* New Pet Animations */
+.pet.healing {
+    animation: healing 0.8s ease;
+}
+
+@keyframes healing {
+    0%, 100% { 
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% { 
+        transform: scale(1.05);
+        filter: brightness(1.3) drop-shadow(0 0 20px rgba(81, 207, 102, 0.8));
+    }
+}
+
+.pet.working {
+    animation: working 1s ease;
+}
+
+@keyframes working {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg) translateX(-5px); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(5deg) translateX(5px); }
+}
+
+.pet.trick-performing {
+    animation: trickPerform 1.5s ease;
+}
+
+@keyframes trickPerform {
+    0% { transform: scale(1) rotate(0deg); }
+    20% { transform: scale(0.9) rotate(-10deg); }
+    40% { transform: scale(1.1) rotate(10deg) translateY(-30px); }
+    60% { transform: scale(1) rotate(-5deg) translateY(-10px); }
+    80% { transform: scale(1.05) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Scrollbar styling */
+.activity-log::-webkit-scrollbar {
+    width: 8px;
+}
+
+.activity-log::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.activity-log::-webkit-scrollbar-thumb {
+    background: #8b9aff;
+    border-radius: 10px;
+}
+
+.activity-log::-webkit-scrollbar-thumb:hover {
+    background: #667eea;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .main-content {
@@ -2398,6 +3068,19 @@ body.night-mode .container {
     
     .action-buttons {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tabs-container {
+        flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+        font-size: 0.8em;
+        padding: 10px 8px;
+    }
+    
+    .badge-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
     
     header h1 {
