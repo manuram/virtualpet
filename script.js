@@ -838,7 +838,8 @@ class VirtualPet {
     updatePetEmoji() {
         if (!this.petEmoji) return;
         
-        // If sleeping, show sleeping emoji
+        // When sleeping, show 😴 emoji (only emoji with closed eyes)
+        // Standard animal emojis (🐶🐱🐦🐰🦊🐻) cannot have their eyes closed
         if (this.isSleeping) {
             this.petEmoji.textContent = '😴';
         } else {
