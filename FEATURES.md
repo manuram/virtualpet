@@ -269,13 +269,13 @@ Comprehensive statistics tracking!
 Personalize your experience!
 
 ### 6 Pet Types:
-Choose from different emoji styles:
-- 🐶 **Dog** (default)
-- 🐱 **Cat**
-- 🐦 **Bird**
-- 🐰 **Rabbit**
-- 🦊 **Fox**
-- 🐻 **Bear**
+Choose from different emoji styles, each with unique sounds:
+- 🐶 **Dog** - "Arf arf" bark sound
+- 🐱 **Cat** - Complex meow with vibrato
+- 🐦 **Bird** - Three cheerful chirps
+- 🐰 **Rabbit** - Soft gentle squeak
+- 🦊 **Fox** - Quick sharp yip
+- 🐻 **Bear** - Deep rumbling growl
 
 ### 6 Container Themes:
 - **Dark Mode** (default)
@@ -300,8 +300,111 @@ Choose from different emoji styles:
 ### Game Settings:
 - **Stat Decay Speed**: Slow / Normal / Fast
 - **Sound Effects**: On / Off
+- **Sound Mode**: Game Sounds (Synthesized) / Realistic Sounds (MP3)
 - **Particle Effects**: On / Off
 - **Auto-Save**: On / Off
+
+---
+
+## 🎵 Sound Effects System
+
+Choose between synthesized game sounds or realistic MP3 audio!
+
+### Dual Sound Mode System:
+
+PixelPaw offers **two sound modes** for complete customization:
+
+#### **🎮 Game Sounds (Default)**
+- Synthesized sounds using Web Audio API
+- No files needed - works immediately
+- Lightweight and always available
+- Retro game-style audio
+- Perfect for quick play
+
+#### **🔊 Realistic Sounds (MP3)**
+- Real animal sound recordings
+- Professional audio quality
+- Requires MP3 files (optional)
+- More immersive experience
+- Authentic pet reactions
+
+#### **Smart Fallback System**
+- Missing MP3 files? No problem!
+- Automatically uses synthesized sounds as backup
+- Game always works regardless of file availability
+- Seamless switching between modes
+
+### Pet-Specific Sounds:
+
+Each pet type has unique synthesized sounds:
+
+| Pet | Sound Type | Characteristics | Frequency | Duration |
+|-----|------------|-----------------|-----------|----------|
+| 🐶 **Dog** | Arf arf | Two quick barks, square wave | 800→300Hz | 0.08s ×2 |
+| 🐱 **Cat** | Meow | Complex with vibrato, pitch modulation | 350→900→400Hz | 0.6s |
+| 🐦 **Bird** | Chirp chirp | Three high-pitched chirps | 2000-2400Hz | 0.08s ×3 |
+| 🐰 **Rabbit** | Squeak | Very soft, gentle | 1200→800Hz | 0.1s |
+| 🦊 **Fox** | Yip | Sharp, quick bark | 900→600Hz | 0.12s |
+| 🐻 **Bear** | Growl | Deep rumble with lowpass filter | 150→120Hz | 0.35s |
+
+### Sound Complexity Ranking:
+1. **Cat** - Most complex (vibrato, dual oscillators, frequency modulation)
+2. **Bird** - Three-part chirp sequence
+3. **Bear** - Filtered low-frequency rumble
+4. **Dog** - Two-bark pattern
+5. **Fox** - Single yip
+6. **Rabbit** - Simple squeak (quietest)
+
+### When Pet Sounds Play:
+- 🍖 **Feeding** - Pet makes eating sounds
+- 🎾 **Playing** - Playful pet sounds
+- 👆 **Petting** - Happy response sound
+- 💖 **Hugging** - Affectionate sound
+- 🏋️ **Training** - Active training sounds
+- 🛁 **Bath** - Playful water sounds
+- 🧸 **Toy** - Excited play sounds
+
+### UI Sound Effects:
+- 💰 **Money Earned** - Pleasant chime (chores, tricks)
+- 🏥 **Heal** - Healing tone (vet, heal actions)
+- 😴 **Sleep** - Low soothing tone (rest mode)
+- ⭐ **Level Up** - Celebration sound
+- 🏆 **Achievement** - Trophy unlock sound
+- ❌ **Error** - Low tone (invalid actions)
+
+### Sound Technology:
+
+**Game Sounds Mode:**
+- **Web Audio API** - Real-time synthesis
+- **Dynamic Generation** - Sounds created programmatically
+- **No Audio Files** - All sounds synthesized on-the-fly
+- **Customizable** - Different frequencies, waveforms, envelopes per pet
+
+**Realistic Sounds Mode:**
+- **HTML5 Audio** - MP3 file playback
+- **Preloaded Assets** - Files load at startup
+- **Sound Cloning** - Allows overlapping sounds
+- **Fallback System** - Uses synthesized sounds if files missing
+
+### Sound Settings:
+- **Toggle On/Off** - Settings → Sound Effects (master switch)
+- **Sound Mode** - Settings → Sound Mode dropdown
+  - **Game Sounds (Synthesized)** - Default, no setup needed
+  - **Realistic Sounds (MP3)** - Requires MP3 files in sounds/ folder
+- **Pet-Specific** - Sounds change when you switch pet types
+- **Volume Controlled** - Balanced for pleasant experience (0.4-0.5 volume)
+- **Performance** - Lightweight in both modes
+
+### How to Add MP3 Files:
+1. Open `sounds/download-helper.html` in your browser
+2. Click download links for free sound libraries
+3. Download MP3 files and place in correct folders:
+   - Pet sounds → `sounds/pets/` folder
+   - UI sounds → `sounds/ui/` folder
+4. Switch to "Realistic Sounds" mode in Settings
+5. Enjoy authentic animal sounds!
+
+**See**: `SOUND_INSTALLATION_GUIDE.md` for complete instructions
 
 ---
 
@@ -412,5 +515,8 @@ PixelPaw features:
 - ✅ Tabbed interface
 - ✅ Activity logging
 - ✅ 288+ customization options
+- ✅ Pet-specific sound effects (6 unique animal sounds)
+- ✅ Web Audio API synthesis
+- ✅ UI feedback sounds
 
-**Start playing and watch your pet grow! 🎮🐾✨**
+**Start playing and watch your pet grow! 🎮🐾✨🔊**

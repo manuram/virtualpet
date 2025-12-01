@@ -23,13 +23,13 @@ An interactive virtual pet application built with HTML, CSS, and JavaScript. Tak
 - **Energy** 💤 - Your pet's activity level
 
 ### Pet Types
-Choose from 6 different pet types:
-- 🐶 Dog
-- 🐱 Cat
-- 🐦 Bird
-- 🐰 Rabbit
-- 🦊 Fox
-- 🐻 Bear
+Choose from 6 different pet types, each with unique sounds:
+- 🐶 Dog - "Arf arf" bark sound
+- 🐱 Cat - Complex meow with vibrato
+- 🐦 Bird - Three cheerful chirps
+- 🐰 Rabbit - Soft gentle squeak
+- 🦊 Fox - Quick sharp yip
+- 🐻 Bear - Deep rumbling growl
 
 ### Progression System
 - **Level System** - Your pet gains experience and levels up (Level 1-20+)
@@ -55,6 +55,22 @@ Unlock special badges by completing challenges:
 - 🏥 Veterinarian - Visit the vet 10 times
 - 🧸 Player - Buy 15 toys
 - 🎪 Trick Master - Perform 25 tricks
+
+### Sound Effects System
+- **Dual Sound Modes** - Choose your preferred audio experience
+  - **Game Sounds (Default)** - Synthesized sounds using Web Audio API (no files needed)
+  - **Realistic Sounds** - MP3 audio files for authentic animal sounds (optional)
+- **Pet-Specific Sounds** - Each pet type has unique sounds
+  - Dog: Two quick barks / Realistic dog bark
+  - Cat: Complex meow with pitch modulation / Authentic cat meow
+  - Bird: Three high-pitched chirps / Real bird chirping
+  - Rabbit: Very soft, gentle squeak / Actual rabbit sound
+  - Fox: Sharp, quick yip / Genuine fox vocalization
+  - Bear: Deep, rumbling growl / Real bear growl
+- **UI Sounds** - Level up, money earned, achievement unlocked, error notifications
+- **Smart Fallback** - Automatically uses synthesized sounds if MP3 files are missing
+- **Easy Setup** - Download MP3 files from free sound libraries (see sounds/README.md)
+- **Toggleable** - Enable/disable in Settings ⚙️
 
 ### Persistence
 - **Auto-Save** - Game automatically saves your progress
@@ -85,6 +101,8 @@ Unlock special badges by completing challenges:
 - Balance earning and spending to maintain a healthy wallet
 - Unlock all badges by completing various challenges
 - Customize themes to create your perfect pet environment (48 combinations!)
+- Try both sound modes - Game Sounds (synthesized) vs Realistic Sounds (MP3 files)
+- Open sounds/download-helper.html to easily download free MP3 sound files
 - Visit regularly - stats decay over time when you're away
 
 ## Technical Details
@@ -98,6 +116,7 @@ Unlock special badges by completing challenges:
 - **Tab System** - Organized interface with Pet Stats, Money & Savings, and Activity & Badges tabs
 - **Modal System** - Settings, Analytics, and Help modals for detailed information
 - **Activity Logging** - Comprehensive tracking of all pet interactions
+- **Web Audio API** - Real-time sound synthesis for pet-specific sounds and UI feedback
 
 ## Getting Started
 

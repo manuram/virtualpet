@@ -1,20 +1,18 @@
-# 🐾 PixelPaw - Realistic Pet Types Guide
+# 🐾 PixelPaw - Pet Types Guide
 
-Your pet now feels **truly alive** with species-specific appearances, behaviors, and personality! Each pet type is uniquely designed to behave like the real animal.
+Your pet is displayed as a beautiful **3D emoji** with realistic appearance! Each pet type has unique sounds, behaviors, and visual characteristics.
 
 ---
 
 ## 🎨 **All Pet Types - Complete Details**
 
-### 🐕 **DOG - Friendly Puppy**
+### 🐶 **DOG - Friendly Puppy**
 
 **Appearance:**
-- **Body**: Round, friendly golden-yellow
-- **Ears**: Floppy, rounded ears that bounce
-- **Tail**: Medium length, constantly wagging
-- **Nose**: Black button nose
-- **Size**: Medium proportions
-- **Colors**: Golden yellow with warm orange tones
+- **Emoji**: 🐶 Realistic dog face emoji
+- **Border Color**: Changes with growth stages (Green → Blue → Purple → Orange → Gold)
+- **Size**: Grows from 85px to 120px as it ages
+- **Sound**: "Arf arf!" - Two quick barks
 
 **Unique Behaviors:**
 - 🐕 **Wiggle**: Excited body wiggling
@@ -26,8 +24,7 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 - Most affectionate and friendly
 - Loves attention and play
 - Energetic and loyal
-- Tail wags constantly (fast animation)
-- Ears flop when moving
+- Very responsive to interactions
 
 **Thought Bubbles:**
 - "Wag wag!" 🐕
@@ -35,19 +32,17 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 - "I love you!" ❤️
 - "Hungry! Woof!" 🍖 (when hungry)
 
-**Best For:** Players who want a loyal companion
+**Best For:** Players who want a loyal, energetic companion
 
 ---
 
 ### 🐱 **CAT - Sleek Feline**
 
 **Appearance:**
-- **Body**: Sleek, elegant cream/beige
-- **Ears**: Pointed triangle ears at top
-- **Tail**: Long, thin tail that sways gracefully
-- **Nose**: Pink button nose
-- **Size**: Slightly smaller, more refined
-- **Colors**: Cream, beige, light tan tones
+- **Emoji**: 🐱 Realistic cat face emoji
+- **Border Color**: Changes with growth stages
+- **Size**: Grows from 85px to 120px
+- **Sound**: "Meow" - Complex vibrato meow (mrrr-OW-www pattern)
 
 **Unique Behaviors:**
 - 😺 **Head Tilt**: Curious tilting
@@ -59,8 +54,7 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 - Independent but affectionate
 - More selective with attention
 - Graceful movements
-- Slower, swaying tail animation
-- Pointed ears stay alert
+- Sophisticated demeanor
 
 **Thought Bubbles:**
 - "Purr purr..." 😸
@@ -68,20 +62,17 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 - "Pet me!" 😺
 - "Meow! Feed me!" 🐟 (when hungry)
 
-**Best For:** Players who appreciate elegance
+**Best For:** Players who appreciate elegance and independence
 
 ---
 
 ### 🐦 **BIRD - Cute Chick**
 
 **Appearance:**
-- **Body**: Round, plump sky blue
-- **Ears**: None (birds don't have visible ears!)
-- **Tail**: Fan-shaped feather tail
-- **Beak**: Orange beak (not a nose!)
-- **Wings**: Visible wing shapes that flap
-- **Size**: Slightly smaller, rounder
-- **Colors**: Sky blue with lighter blue accents
+- **Emoji**: 🐦 Realistic bird emoji
+- **Border Color**: Changes with growth stages
+- **Size**: Grows from 85px to 120px
+- **Sound**: "Chirp chirp chirp!" - Three high-pitched chirps (2000-2400Hz)
 
 **Unique Behaviors:**
 - 🐦 **Hop**: Cute hopping motion
@@ -92,9 +83,8 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 **Personality:**
 - Cheerful and energetic
 - Light, bouncy movements
-- Wings constantly flutter slightly
-- Tail feathers fan out periodically
-- Most animated idle behaviors
+- Very animated
+- Most frequent idle behaviors
 
 **Thought Bubbles:**
 - "Tweet tweet!" 🐦
@@ -102,25 +92,22 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 - "Flying high!" ✨
 - "Seeds please!" 🌾 (when hungry)
 
-**Best For:** Players who love cheerful energy
+**Best For:** Players who love cheerful, high-energy pets
 
 **Special Features:**
-- Visible wings on body that animate
-- No ears (realistic!)
-- Unique beak instead of nose
-- Lightest, most frequent movements
+- Highest pitched sound of all pets
+- Three-chirp pattern (most complex sound)
+- Most animated idle behaviors
 
 ---
 
 ### 🐰 **RABBIT - Long-Eared Bunny**
 
 **Appearance:**
-- **Body**: Round, fluffy white/gray
-- **Ears**: Very long, tall ears
-- **Tail**: Small, fluffy cotton tail
-- **Nose**: Pink, constantly twitching
-- **Size**: Medium, very round
-- **Colors**: Pure white with pink accents
+- **Emoji**: 🐰 Realistic rabbit face emoji
+- **Border Color**: Changes with growth stages
+- **Size**: Grows from 85px to 120px
+- **Sound**: Soft squeak - High-pitched, very quiet (1200Hz→800Hz)
 
 **Unique Behaviors:**
 - 🐰 **Hop**: Quick hopping jumps
@@ -131,9 +118,8 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 **Personality:**
 - Curious and gentle
 - Shy but sweet
-- Nose constantly twitches (always!)
-- Ears twitch and move independently
-- Prefers hopping to smooth movement
+- Soft and quiet
+- Adorable and timid
 
 **Thought Bubbles:**
 - "Hop hop!" 🐰
@@ -141,25 +127,22 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 - "Bunny happy!" 😊
 - "Carrot time?" 🥕 (when hungry)
 
-**Best For:** Players who want cuteness overload
+**Best For:** Players who want maximum cuteness
 
 **Special Features:**
-- Tallest ears of all pets
-- Nose animation is constant and rapid
-- Ears move independently
-- Round puffy tail
+- Quietest sound (volume 0.2 vs 0.4 for others)
+- Shortest sound duration (0.1s)
+- Gentlest personality
 
 ---
 
 ### 🦊 **FOX - Cunning Red Fox**
 
 **Appearance:**
-- **Body**: Sleek orange-red
-- **Ears**: Large pointed ears
-- **Tail**: Long, bushy with white tip
-- **Nose**: Black nose
-- **Size**: Medium-slim build
-- **Colors**: Bright orange-red with white accents
+- **Emoji**: 🦊 Realistic fox face emoji
+- **Border Color**: Changes with growth stages
+- **Size**: Grows from 85px to 120px
+- **Sound**: Quick yip - Sharp, high-pitched bark (900Hz→600Hz)
 
 **Unique Behaviors:**
 - 🦊 **Head Tilt**: Clever head tilting
@@ -171,8 +154,7 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 - Clever and playful
 - Mischievous energy
 - Quick, sharp movements
-- Large tail with white tip detail
-- Sharp, alert ears
+- Alert and cunning
 
 **Thought Bubbles:**
 - "Yip yip!" 🦊
@@ -183,22 +165,19 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 **Best For:** Players who love playful tricksters
 
 **Special Features:**
-- Bushiest, most dramatic tail
-- White tip on tail (realistic!)
-- Sharpest, most pointed ears
-- Most "wild" appearance
+- Uses square wave for sharp "yip" sound
+- Quick, punchy sound (0.12s)
+- Most "wild" personality
 
 ---
 
 ### 🐻 **BEAR - Cuddly Teddy**
 
 **Appearance:**
-- **Body**: Large, chunky brown
-- **Ears**: Round ears on top of head
-- **Tail**: Small, stubby tail
-- **Nose**: Large black nose
-- **Size**: Largest of all pets
-- **Colors**: Warm brown/tan tones
+- **Emoji**: 🐻 Realistic bear face emoji
+- **Border Color**: Changes with growth stages
+- **Size**: Grows from 85px to 120px (appears largest)
+- **Sound**: Deep growl - Low rumbling (150Hz→120Hz with lowpass filter)
 
 **Unique Behaviors:**
 - 🐻 **Wiggle**: Heavy side-to-side wiggle
@@ -210,8 +189,7 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 - Gentle giant
 - Calm and cuddly
 - Slower, heavier movements
-- Round ears wiggle
-- Most huggable appearance
+- Most huggable
 
 **Thought Bubbles:**
 - "Grr! (happy)" 🐻
@@ -222,24 +200,47 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 **Best For:** Players who want a teddy bear friend
 
 **Special Features:**
-- Largest body size
-- Round ears on top (not sides)
-- Smallest tail
-- Most "huggable" design
+- Deepest sound (150Hz - lowest frequency)
+- Longest sound duration (0.35s)
+- Uses lowpass filter for rumble effect
+- Calmest personality
 
 ---
 
-## 🎭 **Behavior Comparison**
+## 🎵 **Sound Comparison**
+
+### **Audio Characteristics by Pet:**
+
+| Pet | Sound Type | Frequency | Duration | Waveform | Volume | Pitch |
+|-----|------------|-----------|----------|----------|--------|-------|
+| 🐶 Dog | Arf arf | 800→300Hz | 0.08s ×2 | Square | 0.4 | High to Low |
+| 🐱 Cat | Meow | 350→900→400Hz | 0.6s | Sawtooth+Sine | 0.25-0.4 | Variable |
+| 🐦 Bird | Chirp | 2000-2400Hz | 0.08s ×3 | Sine | 0.25 | Very High |
+| 🐰 Rabbit | Squeak | 1200→800Hz | 0.1s | Sine | 0.2 | High |
+| 🦊 Fox | Yip | 900→600Hz | 0.12s | Square | 0.3 | Mid-High |
+| 🐻 Bear | Growl | 150→120Hz | 0.35s | Sawtooth+Filter | 0.35 | Very Low |
+
+### **Complexity Ranking:**
+1. 🐱 **Cat** - Most complex (vibrato + dual oscillators + frequency modulation)
+2. 🐦 **Bird** - Three-part chirp sequence
+3. 🐻 **Bear** - Filtered low-frequency rumble
+4. 🐶 **Dog** - Two-bark pattern
+5. 🦊 **Fox** - Single yip
+6. 🐰 **Rabbit** - Simple squeak
+
+---
+
+## 🎭 **Personality Comparison**
 
 ### **Animation Speeds:**
-| Pet | Tail Wag | Ear Movement | Idle Frequency | Movement Style |
-|-----|----------|--------------|----------------|----------------|
-| 🐕 Dog | Fast | Bouncy flop | Very frequent | Energetic |
-| 🐱 Cat | Slow sway | Alert point | Moderate | Graceful |
-| 🐦 Bird | Fan flutter | None | Most frequent | Light & bouncy |
-| 🐰 Rabbit | Static puff | Twitch | Frequent | Hopping |
-| 🦊 Fox | Sweeping | Sharp alert | Moderate | Quick & clever |
-| 🐻 Bear | Tiny wiggle | Slow wiggle | Slower | Heavy & calm |
+| Pet | Idle Frequency | Movement Style | Energy Level |
+|-----|----------------|----------------|--------------|
+| 🐕 Dog | Very frequent | Energetic | ⚡⚡⚡⚡⚡ |
+| 🐱 Cat | Moderate | Graceful | ⚡⚡⚡ |
+| 🐦 Bird | Most frequent | Light & bouncy | ⚡⚡⚡⚡⚡ |
+| 🐰 Rabbit | Frequent | Hopping | ⚡⚡⚡ |
+| 🦊 Fox | Moderate | Quick & clever | ⚡⚡⚡⚡ |
+| 🐻 Bear | Slower | Heavy & calm | ⚡⚡ |
 
 ### **Personality Traits:**
 | Pet | Affection | Energy | Playfulness | Independence | Uniqueness |
@@ -253,48 +254,29 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 
 ---
 
-## 🎨 **Realistic Visual Features**
+## 🎨 **Visual Design**
 
-### **DOG:**
-- Floppy ears that bounce up and down
-- Fast tail wagging (0.8s cycle)
-- Ears flop during movement
-- Rounded, friendly proportions
+### **3D Emoji System:**
+All pets use modern 3D emoji rendering:
+- **High quality** - Rendered by your operating system
+- **Consistent** - Same visual style across all pets
+- **Expressive** - Each emoji has personality
+- **Scalable** - Grows smoothly through life stages
 
-### **CAT:**
-- Sleek, slimmer body shape
-- Pointed triangular ears
-- Long graceful tail (3s slow sway)
-- More refined features
+### **Glowing Border:**
+Each pet is surrounded by a circular glowing border:
+- **Baby** (Lv 1-4): 🟢 Green glow
+- **Child** (Lv 5-9): 🔵 Blue glow
+- **Teen** (Lv 10-14): 🟣 Purple glow
+- **Adult** (Lv 15-19): 🟠 Orange glow
+- **Elder** (Lv 20+): 🟡 Gold glow (enhanced!)
 
-### **BIRD:**
-- **Visible wings** attached to body!
-- Wings animate constantly
-- No ears (realistic to birds)
-- Orange beak instead of nose
-- Fan-shaped tail feathers
-- Rounder, plumper body
-
-### **RABBIT:**
-- Extremely tall ears (110px!)
-- Ears twitch independently
-- **Nose constantly wiggles** (0.5s cycle)
-- Round fluffy tail
-- Most spherical body
-
-### **FOX:**
-- Long bushy tail with white tip shadow
-- Sharp pointed ears
-- Sleeker body
-- Most "wild" appearance
-- Dramatic tail movement
-
-### **BEAR:**
-- Largest body (180px wide)
-- Round ears on top of head (not sides)
-- Small stubby tail
-- Large black nose
-- Chunky, huggable proportions
+### **Mood Badge:**
+Small emoji badge showing current mood:
+- 😊 Happy (80-100% stats)
+- 😐 Okay (60-79% stats)
+- 😢 Sad (40-59% stats)
+- 😰 Critical (0-39% stats)
 
 ---
 
@@ -302,161 +284,122 @@ Your pet now feels **truly alive** with species-specific appearances, behaviors,
 
 1. Click **⚙️ Settings** button
 2. Scroll to "🐾 Choose Your Pet" section
-3. Click any pet type icon
+3. Click any of the 6 pet type icons
 4. **Instant transformation!**
-   - Body morphs to new shape
-   - Colors change immediately
-   - Ears reshape
-   - Tail transforms
+   - Emoji changes immediately
+   - Sound changes to new pet type
    - Behaviors update
-5. Pet retains all stats and progress
+   - Thought bubbles adapt
+5. All stats and progress retained
 
 ---
 
-## 💡 **Species-Specific Tips**
+## 💡 **Species-Specific Features**
 
 ### **DOG:**
-- Responds best to petting and play
-- Most enthusiastic reactions
-- Best for frequent interactions
-- Tail wag intensity shows happiness
+- **Sound**: Classic "arf arf" bark pattern
+- **Thought Style**: Enthusiastic and loyal
+- **Best Interaction**: Responds most to petting
+- **Behavior**: Most energetic animations
 
 ### **CAT:**
-- Watch the tail - slow sway = content
-- More independent, less needy
-- Elegant stretching animations
-- Perfect for calmer play style
+- **Sound**: Sophisticated meow with vibrato
+- **Thought Style**: Elegant and selective
+- **Best Interaction**: Appreciates gentle care
+- **Behavior**: Graceful, slower animations
 
 ### **BIRD:**
-- Most animated and active
-- Loves frequent check-ins
-- Wing flapping shows excitement
-- Chirping sounds cute!
+- **Sound**: Three cheerful chirps
+- **Thought Style**: Happy and musical
+- **Best Interaction**: Loves frequent check-ins
+- **Behavior**: Most animated idle movements
 
 ### **RABBIT:**
-- Watch the twitching nose constantly
-- Loves gentle interactions
-- Hopping shows happiness
-- Tall ears show alertness
+- **Sound**: Very soft, gentle squeak
+- **Thought Style**: Shy and sweet
+- **Best Interaction**: Gentle, calm interactions
+- **Behavior**: Hopping movements
 
 ### **FOX:**
-- Clever and quick animations
-- Playful pouncing is unique
-- Bushy tail is most dramatic
-- Best for players who want "wild" feel
+- **Sound**: Sharp, quick yip
+- **Thought Style**: Clever and playful
+- **Best Interaction**: Loves playful activities
+- **Behavior**: Quick, alert movements
 
 ### **BEAR:**
-- Slowest, calmest animations
-- Best for relaxed gameplay
-- Largest and most huggable
-- Perfect teddy bear companion
-
----
-
-## 🌟 **Unique Features Per Pet**
-
-### **ONLY DOG HAS:**
-- Fastest tail wag
-- Floppy ear bounce
-- Most enthusiastic wiggle
-
-### **ONLY CAT HAS:**
-- Sleekest body
-- Slowest tail sway
-- Graceful stretch animation
-
-### **ONLY BIRD HAS:**
-- Visible animated wings!
-- No ears (realistic!)
-- Beak instead of nose
-- Fan-tail feathers
-- Hopping movement
-- Wing flapping animation
-
-### **ONLY RABBIT HAS:**
-- Tallest ears by far
-- Constantly twitching nose (never stops!)
-- Round puffy tail
-- Stand-up animation
-- Hopping movement
-
-### **ONLY FOX HAS:**
-- White-tipped bushy tail
-- Pouncing animation
-- Wildest appearance
-- Sharpest ears
-
-### **ONLY BEAR HAS:**
-- Largest body size
-- Round ears on top
-- Smallest tail
-- Scratching animation
-- Chubbiest appearance
-
----
-
-## 🎮 **Interactive Differences**
-
-All pets respond to the same interactions (clicking, belly tickle, nose boop, etc.), BUT:
-
-- **Reaction animations** are species-appropriate
-- **Thought bubbles** show species-specific messages
-- **Idle behaviors** are completely unique per species
-- **Movement patterns** match the animal
-- **Proportions** affect how interactions look
+- **Sound**: Deep, rumbling growl
+- **Thought Style**: Gentle and calm
+- **Best Interaction**: Best for hugs
+- **Behavior**: Slowest, calmest animations
 
 ---
 
 ## 🏆 **Which Pet Should You Choose?**
 
 ### **Choose DOG if you want:**
-- Maximum affection and loyalty
-- Energetic, frequent animations
 - Classic pet experience
-- Enthusiastic responses
+- Energetic interactions
+- Maximum responsiveness
+- Traditional bark sound
 
 ### **Choose CAT if you want:**
-- Elegant, graceful movements
+- Sophisticated appearance
+- Realistic meow sound
 - Independent personality
-- Calmer aesthetic
-- Sophisticated vibe
+- Elegant vibes
 
 ### **Choose BIRD if you want:**
-- Most unique animations (wings!)
-- Highest activity level
-- Cheerful, bouncy energy
+- Unique cheerful chirps
+- Most active animations
+- High-pitched sounds
 - Something different
 
 ### **Choose RABBIT if you want:**
+- Quietest, gentlest pet
+- Soft squeak sounds
 - Maximum cuteness
-- Gentle, shy personality
-- Constantly animated nose
-- Adorable hopping
+- Calm experience
 
 ### **Choose FOX if you want:**
-- Clever, playful personality
-- Wild, natural appearance
-- Dramatic bushy tail
+- Quick, sharp sounds
+- Playful personality
+- Wild appearance
 - Mischievous energy
 
 ### **Choose BEAR if you want:**
+- Deepest growl sounds
 - Cuddly teddy bear friend
-- Calm, gentle nature
-- Largest, most huggable pet
-- Relaxing gameplay
+- Calm, relaxing experience
+- Most huggable companion
 
 ---
 
-## 🎨 **Color Palettes**
+## 🎵 **Sound System**
 
-| Pet | Primary Color | Secondary Color | Belly | Nose | Ear Inner |
-|-----|---------------|-----------------|-------|------|-----------|
-| 🐕 Dog | Golden Yellow (#ffce59) | Warm Orange (#ffa94d) | White | Black | Pink |
-| 🐱 Cat | Cream (#f5d6b8) | Beige (#e8b88c) | White | Pink | Pink |
-| 🐦 Bird | Sky Blue (#7dd3fc) | Bright Blue (#38bdf8) | White | Orange | Blue |
-| 🐰 Rabbit | White (#f5f5f5) | Light Gray (#e8e8e8) | Pink | Pink | Pink |
-| 🦊 Fox | Orange (#ff8c42) | Red-Orange (#ff6b35) | White | Black | White |
-| 🐻 Bear | Brown (#8b6f47) | Dark Brown (#6b5435) | Tan | Black | Brown |
+### **How Sounds Work:**
+- **Web Audio API**: Real-time synthesized sounds
+- **Pet-Specific**: Each pet has unique sound characteristics
+- **Toggle**: Can be enabled/disabled in Settings ⚙️
+- **Smart**: Only plays when sound setting is ON
+
+### **When Sounds Play:**
+Pet sounds play during:
+- 🍖 Feeding
+- 🎾 Playing
+- 👆 Petting (single click)
+- 💖 Hugging (double click)
+- 🏋️ Training
+- 🛁 Bath
+- 🧸 Toy
+
+### **UI Sounds:**
+Separate from pet sounds:
+- 💰 Money (chores, tricks)
+- 🏥 Heal (vet, heal actions)
+- 😴 Sleep (rest mode)
+- ⭐ Level Up
+- 🏆 Achievement
+- ❌ Error (invalid actions)
 
 ---
 
@@ -466,24 +409,23 @@ All pets respond to the same interactions (clicking, belly tickle, nose boop, et
 - **Smooth**: No page reload needed
 - **Persistent**: Choice saves automatically
 - **Stats Kept**: All progress retained
-- **Animations Update**: New behaviors start right away
+- **Sound Updates**: New pet sounds active right away
+- **Border Persists**: Growth stage color remains
 
 ---
 
 ## 💝 **Final Notes**
 
-Each pet type is designed to feel like a **real, unique animal**:
-- Different body shapes and proportions
-- Unique ear and tail styles
-- Species-specific animations
-- Personality-appropriate behaviors
-- Realistic movement patterns
-- Custom thought bubbles
-- Appropriate idle behaviors
+Each pet type is designed to feel **unique and realistic**:
+- Different emoji representations
+- Unique synthesized sounds
+- Species-specific behaviors
+- Personality-appropriate thought bubbles
+- Custom idle animations
+- Distinct audio characteristics
 
-**Try them all and find your favorite!** 🐾✨
+**Try them all and find your favorite!** Each pet has its own charm and character! 🐾✨
 
 ---
 
-**Pro Tip:** Switch between pets to see how different each one feels! The bird's wings and rabbit's twitching nose are especially amazing! 🎮
-
+**Pro Tip:** The cat's meow and bird's chirps are the most complex sounds. The bear's growl is the deepest. Try switching between them to hear the difference! 🎮🔊

@@ -63,6 +63,73 @@ Your pet's appearance is all about the emoji and its glowing border:
 
 ---
 
+## 🎵 **Pet Sounds & Audio System**
+
+PixelPaw features a **dual sound system** - choose between synthesized game sounds or realistic MP3 audio!
+
+### **🎮 Two Sound Modes:**
+
+#### **Game Sounds (Default)**
+- Synthesized using Web Audio API
+- No files needed - works immediately
+- Retro game-style audio
+- Always available
+
+#### **Realistic Sounds (MP3)**
+- Real animal sound recordings
+- Professional audio quality
+- Optional MP3 files
+- More immersive
+
+**Switch Modes:** Settings ⚙️ → Sound Mode dropdown
+
+### **Pet-Specific Sounds:**
+
+Each pet type has unique sounds (synthesized or MP3 based on your mode):
+
+| Pet | Sound | Description | When It Plays |
+|-----|-------|-------------|---------------|
+| 🐶 **Dog** | "Arf arf" | Two quick barks | Feeding, playing, petting |
+| 🐱 **Cat** | "Meow" | Complex meow with vibrato | Feeding, playing, petting |
+| 🐦 **Bird** | "Chirp chirp" | Three high-pitched chirps | Feeding, playing, petting |
+| 🐰 **Rabbit** | "Squeak" | Soft gentle squeak (quietest) | Feeding, playing, petting |
+| 🦊 **Fox** | "Yip" | Quick sharp yip | Feeding, playing, petting |
+| 🐻 **Bear** | "Growl" | Deep rumbling growl | Feeding, playing, petting |
+
+### **UI Sounds:**
+- 💰 **Money** - Chimes when earning from chores/tricks
+- 🏥 **Heal** - Healing tone for vet/heal actions
+- 😴 **Sleep** - Soothing tone when entering rest mode
+- ⭐ **Level Up** - Celebration sound on leveling
+- 🏆 **Achievement** - Trophy sound when unlocking badges
+- ❌ **Error** - Low tone for invalid actions
+
+### **Sound Settings:**
+- **Enable/Disable:** Settings ⚙️ → Sound Effects toggle (master switch)
+- **Choose Mode:** Settings ⚙️ → Sound Mode dropdown
+  - **Game Sounds** - Synthesized (default, no setup)
+  - **Realistic Sounds** - MP3 files (requires download)
+- **Automatic Matching:** Sounds change when you switch pet types
+- **Smart Fallback:** Missing MP3s? Game uses synthesized sounds automatically
+
+### **How to Get Realistic Sounds:**
+1. Open `sounds/download-helper.html` in your browser
+2. Click links to free sound libraries (Freesound, Pixabay)
+3. Download 12 MP3 files (6 pets + 6 UI sounds)
+4. Place in correct folders (sounds/pets/ and sounds/ui/)
+5. Switch to "Realistic Sounds" mode in Settings
+6. Enjoy authentic animal sounds!
+
+**Full Guide:** See `SOUND_INSTALLATION_GUIDE.md` for step-by-step instructions
+
+### **Pro Tips:**
+- Try switching between different pet types to hear each unique animal sound!
+- Compare Game Sounds vs Realistic Sounds to see which you prefer!
+- The cat's meow is the most complex synthesized sound with vibrato!
+- Missing MP3 files? No problem - game uses synthesized sounds as backup! 🔊
+
+---
+
 ## 🎮 **Complete Interaction Guide**
 
 ### **🖱️ Direct Pet Interactions**

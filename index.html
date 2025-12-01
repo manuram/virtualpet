@@ -270,6 +270,13 @@
                         <input type="checkbox" id="soundToggle" checked>
                     </div>
                     <div class="setting-item">
+                        <label for="soundMode">Sound Mode:</label>
+                        <select id="soundMode">
+                            <option value="game" selected>Game Sounds (Synthesized)</option>
+                            <option value="realistic">Realistic Sounds (MP3)</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
                         <label for="particlesToggle">Particle Effects:</label>
                         <input type="checkbox" id="particlesToggle" checked>
                     </div>
@@ -597,6 +604,21 @@
                         <li>🧸 <strong>Player:</strong> Buy 15 toys for your pet</li>
                         <li>🎪 <strong>Trick Master:</strong> Perform 25 tricks</li>
                     </ul>
+                </div>
+
+                <div class="help-section">
+                    <h3>🔊 Sound Options</h3>
+                    <p>Click the ⚙️ <strong>Settings</strong> button to customize sound:</p>
+                    <ul>
+                        <li><strong>Sound Effects:</strong> Turn sounds on/off completely</li>
+                        <li><strong>Sound Mode:</strong>
+                            <ul style="margin-top: 5px;">
+                                <li><strong>Game Sounds:</strong> Synthesized sounds (default, no files needed)</li>
+                                <li><strong>Realistic Sounds:</strong> MP3 audio files for realistic pet sounds</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p style="margin-top: 10px;"><em>Note: MP3 files are optional. If you choose "Realistic Sounds" but MP3 files are not available, the game will automatically use synthesized sounds. See sounds/README.md for details on adding MP3 files.</em></p>
                 </div>
 
                 <div class="help-section">

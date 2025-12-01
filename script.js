@@ -74,11 +74,19 @@ class VirtualPet {
         this.settings = {
             decaySpeed: 1,
             soundEnabled: true,
+            soundMode: 'game', // 'game' or 'realistic'
             particlesEnabled: true,
             autoSave: true,
             theme: 'purple',
             containerTheme: 'dark'
         };
+        
+        // Audio library for MP3 sounds
+        this.audioLibrary = {
+            pets: {},
+            ui: {}
+        };
+        this.loadAudioFiles();
         
         this.initializeElements();
         this.setupEventListeners();
@@ -245,6 +253,12 @@ class VirtualPet {
             this.saveGame();
         });
 
+        document.getElementById('soundMode').addEventListener('change', (e) => {
+            this.settings.soundMode = e.target.value;
+            this.saveGame();
+            this.showMessage(`Sound mode: ${e.target.value === 'game' ? 'Game Sounds' : 'Realistic Sounds'}`);
+        });
+
         document.getElementById('particlesToggle').addEventListener('change', (e) => {
             this.settings.particlesEnabled = e.target.checked;
             this.saveGame();
@@ -288,22 +302,26 @@ class VirtualPet {
 
     feed() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Your pet is sleeping! Zzz...', true);
             return;
         }
 
         if (this.hunger >= 100) {
+            this.playSound('error');
             this.showMessage('Your pet is not hungry!', true);
             return;
         }
 
         const cost = 5;
         if (this.wallet < cost) {
+            this.playSound('error');
             this.showMessage(`Not enough money! Need $${cost}`, true);
             return;
         }
 
         if (this.energy < 10) {
+            this.playSound('error');
             this.showMessage('Your pet is too tired to eat!', true);
             return;
         }
@@ -319,6 +337,7 @@ class VirtualPet {
         this.pet.classList.add('eating');
         setTimeout(() => this.pet.classList.remove('eating'), 500);
         
+        this.playSound('pet');
         this.createParticles('🍖', 'sparkle');
         this.showMessage(`Yum! Your pet enjoyed the meal! (-$${cost})`);
         this.logActivity('Fed the pet');
@@ -331,11 +350,13 @@ class VirtualPet {
 
     play() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Your pet is sleeping! Zzz...', true);
             return;
         }
 
         if (this.energy < 20) {
+            this.playSound('error');
             this.showMessage('Your pet is too tired to play!', true);
             return;
         }
@@ -349,6 +370,7 @@ class VirtualPet {
         this.pet.classList.add('playing');
         setTimeout(() => this.pet.classList.remove('playing'), 1000);
         
+        this.playSound('pet');
         this.createParticles('✨', 'sparkle');
         this.showMessage('Your pet had fun playing! 🎾');
         this.logActivity('Played with the pet');
@@ -361,11 +383,13 @@ class VirtualPet {
 
     sleep() {
         if (this.isSleeping) {
+            this.playSound('click');
             this.isSleeping = false;
             this.pet.classList.remove('sleeping');
             this.showMessage('Your pet woke up! ☀️');
             this.logActivity('Pet woke up');
         } else {
+            this.playSound('sleep');
             this.isSleeping = true;
             this.energy = Math.min(100, this.energy + 50);
             this.health = Math.min(100, this.health + 10);
@@ -379,16 +403,19 @@ class VirtualPet {
 
     heal() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Your pet is sleeping! Zzz...', true);
             return;
         }
 
         if (this.health >= 100) {
+            this.playSound('error');
             this.showMessage('Your pet is already healthy!', true);
             return;
         }
 
         if (this.energy < 15) {
+            this.playSound('error');
             this.showMessage('Your pet is too tired!', true);
             return;
         }
@@ -398,6 +425,7 @@ class VirtualPet {
         this.addExperience(8);
         this.healCount++;
         
+        this.playSound('heal');
         this.showMessage('Your pet feels better! 💊');
         this.logActivity('Used healing medicine');
         this.updateDisplay();
@@ -406,17 +434,20 @@ class VirtualPet {
 
     bath() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Your pet is sleeping! Zzz...', true);
             return;
         }
 
         const cost = 8;
         if (this.wallet < cost) {
+            this.playSound('error');
             this.showMessage(`Not enough money! Need $${cost}`, true);
             return;
         }
 
         if (this.energy < 10) {
+            this.playSound('error');
             this.showMessage('Your pet is too tired!', true);
             return;
         }
@@ -429,6 +460,7 @@ class VirtualPet {
         this.addExperience(5);
         this.bathCount++;
         
+        this.playSound('pet');
         this.showMessage(`Your pet is clean and happy! (-$${cost})`);
         this.logActivity('Gave the pet a bath');
         this.updateDisplay();
@@ -437,11 +469,13 @@ class VirtualPet {
 
     train() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Your pet is sleeping! Zzz...', true);
             return;
         }
 
         if (this.energy < 30) {
+            this.playSound('error');
             this.showMessage('Your pet is too tired to train!', true);
             return;
         }
@@ -452,6 +486,7 @@ class VirtualPet {
         this.addExperience(20);
         this.trainCount++;
         
+        this.playSound('pet');
         this.showMessage('Your pet trained hard! 🏋️');
         this.logActivity('Trained the pet');
         this.updateDisplay();
@@ -460,12 +495,14 @@ class VirtualPet {
 
     vet() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Your pet is sleeping! Zzz...', true);
             return;
         }
 
         const cost = 25;
         if (this.wallet < cost) {
+            this.playSound('error');
             this.showMessage(`Not enough money! Need $${cost}`, true);
             return;
         }
@@ -481,6 +518,7 @@ class VirtualPet {
         this.pet.classList.add('healing');
         setTimeout(() => this.pet.classList.remove('healing'), 800);
         
+        this.playSound('heal');
         this.createParticles('💉', 'sparkle');
         this.showMessage(`Vet visit complete! Full health restored! (-$${cost})`);
         this.logActivity('Visited the vet');
@@ -492,11 +530,13 @@ class VirtualPet {
 
     chore() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Your pet is sleeping! Zzz...', true);
             return;
         }
 
         if (this.energy < 20) {
+            this.playSound('error');
             this.showMessage('Your pet is too tired for chores!', true);
             return;
         }
@@ -513,6 +553,7 @@ class VirtualPet {
         this.pet.classList.add('working');
         setTimeout(() => this.pet.classList.remove('working'), 1000);
         
+        this.playSound('money');
         this.createParticles('💰', 'sparkle');
         this.showMessage(`Chore completed! Earned $${earnings}! 🧹`);
         this.logActivity(`Did chores and earned $${earnings}`);
@@ -524,17 +565,20 @@ class VirtualPet {
 
     toy() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Your pet is sleeping! Zzz...', true);
             return;
         }
 
         const cost = 15;
         if (this.wallet < cost) {
+            this.playSound('error');
             this.showMessage(`Not enough money! Need $${cost}`, true);
             return;
         }
 
         if (this.energy < 15) {
+            this.playSound('error');
             this.showMessage('Your pet is too tired to play with toys!', true);
             return;
         }
@@ -550,6 +594,7 @@ class VirtualPet {
         this.pet.classList.add('playing');
         setTimeout(() => this.pet.classList.remove('playing'), 1200);
         
+        this.playSound('pet');
         this.createParticles('🧸', 'sparkle');
         this.createParticles('🎈', 'sparkle');
         this.showMessage(`New toy! Your pet loves it! (-$${cost})`);
@@ -562,16 +607,19 @@ class VirtualPet {
 
     trick() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Your pet is sleeping! Zzz...', true);
             return;
         }
 
         if (this.energy < 25) {
+            this.playSound('error');
             this.showMessage('Your pet is too tired to perform tricks!', true);
             return;
         }
 
         if (this.level < 3) {
+            this.playSound('error');
             this.showMessage('Your pet needs to be Level 3+ to learn tricks!', true);
             return;
         }
@@ -588,6 +636,7 @@ class VirtualPet {
         this.pet.classList.add('trick-performing');
         setTimeout(() => this.pet.classList.remove('trick-performing'), 1500);
         
+        this.playSound('money');
         this.createParticles('✨', 'sparkle');
         this.createParticles('🌟', 'sparkle');
         this.createParticles('🎭', 'sparkle');
@@ -800,6 +849,7 @@ class VirtualPet {
         this.health = 100;
         this.happiness = Math.min(100, this.happiness + 20);
         
+        this.playSound('levelup');
         this.createParticles('⭐', 'sparkle');
         this.createParticles('🎉', 'sparkle');
         
@@ -1095,6 +1145,7 @@ class VirtualPet {
 
     hugPet() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Your pet is sleeping peacefully... 💤', true);
             return;
         }
@@ -1106,6 +1157,7 @@ class VirtualPet {
         this.health = Math.min(100, this.health + 5);
         this.addExperience(8);
         
+        this.playSound('pet');
         for (let i = 0; i < 5; i++) {
             setTimeout(() => this.createParticles('💖', 'heart'), i * 100);
         }
@@ -1184,6 +1236,7 @@ class VirtualPet {
     checkAchievement(achievementId, message) {
         if (!this.achievements[achievementId]) {
             this.achievements[achievementId] = true;
+            this.playSound('achievement');
             this.showAchievement(message);
             this.saveGame();
         }
@@ -1233,6 +1286,7 @@ class VirtualPet {
         // Update settings values
         document.getElementById('decaySpeed').value = this.settings.decaySpeed;
         document.getElementById('soundToggle').checked = this.settings.soundEnabled;
+        document.getElementById('soundMode').value = this.settings.soundMode || 'game';
         document.getElementById('particlesToggle').checked = this.settings.particlesEnabled;
         document.getElementById('autoSave').checked = this.settings.autoSave;
         document.getElementById('containerTheme').value = this.settings.containerTheme;
@@ -1547,6 +1601,7 @@ class VirtualPet {
 
     petPet() {
         if (this.isSleeping) {
+            this.playSound('error');
             this.showMessage('Shh... Your pet is sleeping! 💤', true);
             return;
         }
@@ -1558,6 +1613,7 @@ class VirtualPet {
         this.pet.classList.add('petting');
         setTimeout(() => this.pet.classList.remove('petting'), 600);
         
+        this.playSound('pet');
         this.createParticles('❤️', 'heart');
         
         const messages = [
@@ -1573,6 +1629,279 @@ class VirtualPet {
         
         this.updateDisplay();
         this.saveGame();
+    }
+
+    async playSound(type = 'click') {
+        if (!this.settings.soundEnabled) return;
+        
+        // Pet-specific sounds
+        if (type === 'pet') {
+            await this.playPetSound();
+            return;
+        }
+        
+        // Try MP3 first if realistic mode is enabled
+        if (this.settings.soundMode === 'realistic') {
+            const mp3Played = await this.playMP3Sound('ui', type);
+            if (mp3Played) return;
+        }
+        
+        // Fallback to synthesized sounds
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Different sounds for different actions
+            const soundTypes = {
+                click: { freq: 800, duration: 0.1, type: 'sine' },
+                feed: { freq: 600, duration: 0.15, type: 'sine' },
+                play: { freq: 1000, duration: 0.2, type: 'sine' },
+                sleep: { freq: 400, duration: 0.3, type: 'sine' },
+                heal: { freq: 900, duration: 0.2, type: 'sine' },
+                levelup: { freq: 1200, duration: 0.3, type: 'square' },
+                achievement: { freq: 1500, duration: 0.25, type: 'square' },
+                error: { freq: 300, duration: 0.15, type: 'sawtooth' },
+                money: { freq: 1100, duration: 0.18, type: 'triangle' }
+            };
+            
+            const sound = soundTypes[type] || soundTypes.click;
+            
+            oscillator.frequency.value = sound.freq;
+            oscillator.type = sound.type;
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + sound.duration);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + sound.duration);
+        } catch (error) {
+            console.log('Sound not available:', error);
+        }
+    }
+
+    async playPetSound() {
+        // Try MP3 first if realistic mode is enabled
+        if (this.settings.soundMode === 'realistic') {
+            const mp3Played = await this.playMP3Sound('pets', this.petType);
+            if (mp3Played) return;
+        }
+        
+        // Fallback to synthesized pet sounds
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const now = audioContext.currentTime;
+        
+        // Pet-specific sounds using frequency modulation
+        const petSounds = {
+            dog: () => {
+                // Simple "arf arf" pattern - more recognizable
+                for (let i = 0; i < 2; i++) {
+                    const t = now + (i * 0.18);
+                    
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    
+                    osc.type = 'square';
+                    
+                    // Quick drop from high to low - classic bark sound
+                    osc.frequency.setValueAtTime(800, t);
+                    osc.frequency.exponentialRampToValueAtTime(300, t + 0.06);
+                    
+                    // Sharp attack and quick decay
+                    gain.gain.setValueAtTime(0.4, t);
+                    gain.gain.exponentialRampToValueAtTime(0.01, t + 0.08);
+                    
+                    osc.start(t);
+                    osc.stop(t + 0.08);
+                }
+            },
+            cat: () => {
+                // Realistic meow: Complex frequency modulation with vibrato
+                const osc1 = audioContext.createOscillator();
+                const osc2 = audioContext.createOscillator();
+                const vibrato = audioContext.createOscillator();
+                const vibratoGain = audioContext.createGain();
+                const gain = audioContext.createGain();
+                const filter = audioContext.createBiquadFilter();
+                
+                // Setup vibrato (makes it sound more cat-like)
+                vibrato.frequency.value = 8; // 8Hz vibrato
+                vibratoGain.gain.value = 30; // Vibrato depth
+                vibrato.connect(vibratoGain);
+                
+                // Connect oscillators
+                vibratoGain.connect(osc1.frequency);
+                osc1.connect(gain);
+                osc2.connect(gain);
+                gain.connect(filter);
+                filter.connect(audioContext.destination);
+                
+                filter.type = 'bandpass';
+                filter.frequency.value = 800;
+                filter.Q.value = 2;
+                
+                osc1.type = 'sawtooth';
+                osc2.type = 'sine';
+                
+                // Meow pattern: mrrr-OW-www
+                osc1.frequency.setValueAtTime(350, now);
+                osc1.frequency.linearRampToValueAtTime(450, now + 0.1);
+                osc1.frequency.linearRampToValueAtTime(900, now + 0.25);
+                osc1.frequency.linearRampToValueAtTime(600, now + 0.45);
+                osc1.frequency.linearRampToValueAtTime(400, now + 0.55);
+                
+                osc2.frequency.setValueAtTime(700, now);
+                osc2.frequency.linearRampToValueAtTime(1200, now + 0.25);
+                osc2.frequency.linearRampToValueAtTime(800, now + 0.55);
+                
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.linearRampToValueAtTime(0.4, now + 0.25);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+                
+                vibrato.start(now);
+                vibrato.stop(now + 0.6);
+                osc1.start(now);
+                osc1.stop(now + 0.6);
+                osc2.start(now);
+                osc2.stop(now + 0.6);
+            },
+            bird: () => {
+                // Chirp: High frequency, quick pulses
+                for (let i = 0; i < 3; i++) {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    
+                    const startTime = now + (i * 0.1);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(2000 + (i * 200), startTime);
+                    osc.frequency.exponentialRampToValueAtTime(1800, startTime + 0.05);
+                    
+                    gain.gain.setValueAtTime(0.25, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.08);
+                    
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.08);
+                }
+            },
+            rabbit: () => {
+                // Soft squeak: Short, high-pitched
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1200, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+                
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                
+                osc.start(now);
+                osc.stop(now + 0.1);
+            },
+            fox: () => {
+                // Yip: Quick high-pitched bark
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(900, now);
+                osc.frequency.exponentialRampToValueAtTime(600, now + 0.08);
+                
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+                
+                osc.start(now);
+                osc.stop(now + 0.12);
+            },
+            bear: () => {
+                // Growl: Low frequency rumble
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                const filter = audioContext.createBiquadFilter();
+                
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioContext.destination);
+                
+                filter.type = 'lowpass';
+                filter.frequency.value = 400;
+                
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.linearRampToValueAtTime(120, now + 0.3);
+                
+                gain.gain.setValueAtTime(0.35, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                
+                osc.start(now);
+                osc.stop(now + 0.35);
+            }
+        };
+        
+        const soundFunc = petSounds[this.petType] || petSounds.dog;
+        soundFunc();
+    }
+
+    loadAudioFiles() {
+        // Load pet sounds
+        const petTypes = ['dog', 'cat', 'bird', 'rabbit', 'fox', 'bear'];
+        petTypes.forEach(pet => {
+            const audio = new Audio();
+            audio.src = `sounds/pets/${pet}.mp3`;
+            audio.volume = 0.5;
+            audio.preload = 'auto';
+            this.audioLibrary.pets[pet] = audio;
+            
+            // Handle loading errors silently
+            audio.addEventListener('error', () => {
+                console.log(`MP3 not found for ${pet}, will use synthesized sound`);
+            });
+        });
+        
+        // Load UI sounds
+        const uiSounds = ['money', 'heal', 'sleep', 'levelup', 'achievement', 'error'];
+        uiSounds.forEach(sound => {
+            const audio = new Audio();
+            audio.src = `sounds/ui/${sound}.mp3`;
+            audio.volume = 0.4;
+            audio.preload = 'auto';
+            this.audioLibrary.ui[sound] = audio;
+            
+            // Handle loading errors silently
+            audio.addEventListener('error', () => {
+                console.log(`MP3 not found for ${sound}, will use synthesized sound`);
+            });
+        });
+    }
+
+    async playMP3Sound(category, name) {
+        try {
+            const audio = this.audioLibrary[category][name];
+            if (!audio) return false;
+            
+            // Clone the audio to allow overlapping sounds
+            const soundClone = audio.cloneNode();
+            soundClone.volume = audio.volume;
+            
+            await soundClone.play();
+            return true;
+        } catch (error) {
+            console.log(`Failed to play MP3 ${category}/${name}:`, error);
+            return false;
+        }
     }
 
     createParticles(emoji, type = 'heart') {

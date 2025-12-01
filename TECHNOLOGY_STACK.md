@@ -470,6 +470,7 @@ localStorage.removeItem('pixelPawSave');
   settings: {
     decaySpeed: 1,
     soundEnabled: true,
+    soundMode: "game", // 'game' or 'realistic'
     particlesEnabled: true,
     autoSave: true,
     theme: "purple",
@@ -551,6 +552,127 @@ handleEyeTracking(e) {
 
 document.addEventListener('mousemove', this.handleEyeTracking);
 ```
+
+---
+
+### 5. Audio APIs
+
+PixelPaw uses a **dual audio system** supporting both synthesized and file-based sounds.
+
+#### **Web Audio API** (Game Sounds Mode)
+
+**Purpose**: Real-time sound synthesis
+
+**Implementation**:
+```javascript
+playSound(type) {
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  
+  oscillator.frequency.value = 800; // Hz
+  oscillator.type = 'sine'; // Wave type
+  
+  gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+  
+  oscillator.start(audioContext.currentTime);
+  oscillator.stop(audioContext.currentTime + 0.15);
+}
+```
+
+**Features**:
+- **Oscillator Types**: Sine, square, triangle, sawtooth
+- **Frequency Modulation**: Dynamic pitch changes
+- **Gain Control**: Volume envelopes
+- **Filters**: Bandpass, lowpass for realistic timbre
+- **Multi-oscillator**: Complex sounds (cat meow uses 3 oscillators + vibrato)
+
+**Pet-Specific Synthesis**:
+- **Dog**: Square wave, 800Hz→300Hz (2 barks)
+- **Cat**: Sawtooth + sine with 8Hz vibrato, complex frequency modulation
+- **Bird**: 3 sine waves at 2000-2400Hz
+- **Rabbit**: Gentle sine wave, 1200Hz→800Hz
+- **Fox**: Sharp square wave, 900Hz→600Hz
+- **Bear**: Low sawtooth with lowpass filter, 150Hz→120Hz
+
+#### **HTML5 Audio API** (Realistic Sounds Mode)
+
+**Purpose**: Play MP3 audio files
+
+**Implementation**:
+```javascript
+// Preload audio files
+loadAudioFiles() {
+  const audio = new Audio();
+  audio.src = 'sounds/pets/dog.mp3';
+  audio.volume = 0.5;
+  audio.preload = 'auto';
+  this.audioLibrary.pets['dog'] = audio;
+}
+
+// Play with cloning for overlapping sounds
+async playMP3Sound(category, name) {
+  const audio = this.audioLibrary[category][name];
+  const soundClone = audio.cloneNode();
+  soundClone.volume = audio.volume;
+  await soundClone.play();
+}
+```
+
+**Features**:
+- **Preloading**: All sounds load at startup
+- **Sound Cloning**: Allows simultaneous/overlapping playback
+- **Fallback System**: Missing MP3s → automatic switch to synthesized sounds
+- **Error Handling**: Silent failures, no game interruption
+
+**File Structure**:
+```
+sounds/
+├── pets/
+│   ├── dog.mp3
+│   ├── cat.mp3
+│   ├── bird.mp3
+│   ├── rabbit.mp3
+│   ├── fox.mp3
+│   └── bear.mp3
+└── ui/
+    ├── money.mp3
+    ├── heal.mp3
+    ├── sleep.mp3
+    ├── levelup.mp3
+    ├── achievement.mp3
+    └── error.mp3
+```
+
+#### **Sound Mode Selection**
+
+**Settings**:
+```javascript
+settings: {
+  soundEnabled: true,      // Master toggle
+  soundMode: 'game',       // 'game' or 'realistic'
+  // ...
+}
+```
+
+**Logic Flow**:
+1. Check if `soundEnabled` is true
+2. If `soundMode === 'realistic'`:
+   - Try to play MP3 file
+   - If successful → Done
+   - If fails → Fallback to synthesized
+3. If `soundMode === 'game'`:
+   - Play synthesized sound directly
+
+**Benefits**:
+- **Flexibility**: Users choose their preference
+- **Reliability**: Always works (fallback system)
+- **Optional Enhancement**: MP3s enhance but aren't required
+- **Performance**: Synthesized sounds are lightweight
 
 ---
 
