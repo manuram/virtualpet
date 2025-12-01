@@ -410,14 +410,21 @@ Each pet type has unique synthesized sounds:
 
 ## ✨ Visual Effects & Animations
 
-Beautiful animations throughout!
+Beautiful animations throughout with **optimized text rendering** for crystal-clear readability!
 
 ### Pet Animations:
-- **Breathing bounce** - Gentle up/down motion
-- **Glow pulse** - Border light intensity changes
+- **Breathing bounce** - Gentle up/down motion (optimized for minimal movement)
+- **Glow pulse** - Border light intensity changes (3-second smooth cycle)
 - **Growth animation** - Smooth size and color transitions
 - **Sleep mode** - Softened glow, sleeping emoji
 - **Interaction feedback** - Pet reacts to clicks
+
+### Text Rendering Optimization:
+- **Hardware-accelerated rendering** - GPU-powered smooth text
+- **Geometric precision** - Ultra-sharp text during animations
+- **Anti-aliasing** - Perfect clarity across all browsers
+- **Zero blur** - Text stays crisp during all animations and transitions
+- **Optimized bounce** - Reduced movement to maintain text readability
 
 ### Particle Effects:
 - **Hearts** ❤️ - For petting

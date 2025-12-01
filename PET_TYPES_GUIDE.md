@@ -257,11 +257,14 @@ Your pet is displayed as a beautiful **3D emoji** with realistic appearance! Eac
 ## 🎨 **Visual Design**
 
 ### **3D Emoji System:**
-All pets use modern 3D emoji rendering:
+All pets use modern 3D emoji rendering with **optimized display**:
 - **High quality** - Rendered by your operating system
+- **Optimized size** - 90px base size for perfect clarity
 - **Consistent** - Same visual style across all pets
 - **Expressive** - Each emoji has personality
 - **Scalable** - Grows smoothly through life stages
+- **No clipping** - Properly sized container (210px) with 15px padding
+- **Crisp rendering** - Hardware-accelerated for zero blur during animations
 
 ### **Glowing Border:**
 Each pet is surrounded by a circular glowing border:
