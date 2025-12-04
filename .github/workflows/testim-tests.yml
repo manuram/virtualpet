@@ -1,1 +1,41 @@
+name: Run Testim Tests
 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  testim-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install Testim CLI
+        run: npm install -g @testim/testim-cli
+      
+      - name: Run Testim Tests
+        env:
+          TESTIM_PROJECT_ID: ${{ secrets.TESTIM_PROJECT_ID }}
+          TESTIM_API_TOKEN: ${{ secrets.TESTIM_API_TOKEN }}
+        run: |
+          testim run \
+            --project $TESTIM_PROJECT_ID \
+            --token $TESTIM_API_TOKEN
+      
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: testim-results
+          path: testim-results/
+          retention-days: 30
