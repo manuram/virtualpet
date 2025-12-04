@@ -38,18 +38,33 @@ jobs:
           TESTIM_GRID: ${{ secrets.TESTIM_GRID }}
         run: |
           echo "🚀 Starting Testim test execution..."
+          
+          # Validate required secrets
+          if [ -z "$TESTIM_PROJECT_ID" ]; then
+            echo "❌ ERROR: TESTIM_PROJECT_ID secret is not set"
+            exit 1
+          fi
+          
+          if [ -z "$TESTIM_API_TOKEN" ]; then
+            echo "❌ ERROR: TESTIM_API_TOKEN secret is not set"
+            exit 1
+          fi
+          
           echo "Project ID: ${TESTIM_PROJECT_ID:0:10}..." # Show first 10 chars for logging
+          echo "Token: ${TESTIM_API_TOKEN:0:10}..." # Show first 10 chars for verification
           
           # Run all tests in the project
           # Testim CLI requires --grid, --grid-id, or --host parameter
           if [ -n "$TESTIM_GRID" ]; then
             GRID_PARAM="--grid $TESTIM_GRID"
+            echo "Using grid: $TESTIM_GRID"
           else
             # Use default cloud grid if not specified
             echo "⚠️ TESTIM_GRID not set, using default cloud grid"
             GRID_PARAM="--grid cloud"
           fi
           
+          echo "Executing Testim CLI command..."
           testim \
             --token "$TESTIM_API_TOKEN" \
             --project "$TESTIM_PROJECT_ID" \
