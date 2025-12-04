@@ -40,8 +40,8 @@ jobs:
           echo "Project ID: ${TESTIM_PROJECT_ID:0:10}..." # Show first 10 chars for logging
           
           # Run all tests in the project
-          # 'testim run' is a subcommand, not a flag
-          testim run \
+          # Testim CLI syntax: testim --token ... --project ...
+          testim \
             --token "$TESTIM_API_TOKEN" \
             --project "$TESTIM_PROJECT_ID" \
             --parallel 3 \
