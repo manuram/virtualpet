@@ -35,18 +35,25 @@ jobs:
         env:
           TESTIM_PROJECT_ID: ${{ secrets.TESTIM_PROJECT_ID }}
           TESTIM_API_TOKEN: ${{ secrets.TESTIM_API_TOKEN }}
+          TESTIM_GRID: ${{ secrets.TESTIM_GRID }}
         run: |
           echo "🚀 Starting Testim test execution..."
           echo "Project ID: ${TESTIM_PROJECT_ID:0:10}..." # Show first 10 chars for logging
           
           # Run all tests in the project
-          # Testim CLI syntax: testim --token ... --project ...
+          # Testim CLI requires --grid, --grid-id, or --host parameter
+          if [ -n "$TESTIM_GRID" ]; then
+            GRID_PARAM="--grid $TESTIM_GRID"
+          else
+            # Use default cloud grid if not specified
+            echo "⚠️ TESTIM_GRID not set, using default cloud grid"
+            GRID_PARAM="--grid cloud"
+          fi
+          
           testim \
             --token "$TESTIM_API_TOKEN" \
             --project "$TESTIM_PROJECT_ID" \
-            --parallel 3 \
-            --timeout 600 \
-            --retries 1 || TEST_EXIT_CODE=$?
+            $GRID_PARAM || TEST_EXIT_CODE=$?
           
           # Create output directory if it doesn't exist
           mkdir -p ./testim-results
