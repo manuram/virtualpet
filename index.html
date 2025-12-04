@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PixelPaw - Virtual Pet</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Testim Test Automation Integration -->
+    <script src="https://cdn.testim.io/js/testim-recorder.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>🐾 PixelPaw Virtual Pet 🐾</h1>
             <div class="pet-name-container">
-                <input type="text" id="petNameInput" placeholder="Name your pet..." maxlength="15">
-                <button id="setNameBtn">Set Name</button>
-                <button id="settingsBtn" class="icon-btn" title="Settings">⚙️</button>
-                <button id="analyticsBtn" class="icon-btn" title="Analytics">📊</button>
-                <button id="helpBtn" class="icon-btn" title="Help & Tutorial">❓</button>
+                <input type="text" id="petNameInput" data-testid="pet-name-input" placeholder="Name your pet..." maxlength="15">
+                <button id="setNameBtn" data-testid="set-name-button">Set Name</button>
+                <button id="settingsBtn" class="icon-btn" data-testid="settings-button" title="Settings">⚙️</button>
+                <button id="analyticsBtn" class="icon-btn" data-testid="analytics-button" title="Analytics">📊</button>
+                <button id="helpBtn" class="icon-btn" data-testid="help-button" title="Help & Tutorial">❓</button>
             </div>
         </header>
 
@@ -29,7 +31,7 @@
                             <div class="pet-cloud cloud-2"></div>
                             <div class="pet-cloud cloud-3"></div>
                         </div>
-                        <div id="pet" class="pet breathing" title="Click me! Double-click for hugs! 💕">
+                        <div id="pet" class="pet breathing" data-testid="pet-emoji" title="Click me! Double-click for hugs! 💕">
                             <div class="pet-circle-border">
                                 <div class="pet-emoji-container">
                                     <div class="pet-emoji">🐶</div>
@@ -92,43 +94,43 @@
             <div class="actions-panel">
                 <h2>Actions</h2>
                 <div class="action-buttons">
-                    <button class="action-btn" id="feedBtn" title="Feed your pet">
+                    <button class="action-btn" id="feedBtn" data-testid="feed-button" title="Feed your pet">
                         <span class="emoji">🍖</span>
                         <span>Feed ($5)</span>
                     </button>
-                    <button class="action-btn" id="playBtn" title="Play with your pet">
+                    <button class="action-btn" id="playBtn" data-testid="play-button" title="Play with your pet">
                         <span class="emoji">🎾</span>
                         <span>Play</span>
                     </button>
-                    <button class="action-btn" id="sleepBtn" title="Put pet to sleep">
+                    <button class="action-btn" id="sleepBtn" data-testid="sleep-button" title="Put pet to sleep">
                         <span class="emoji">💤</span>
                         <span>Rest</span>
                     </button>
-                    <button class="action-btn" id="healBtn" title="Heal your pet">
+                    <button class="action-btn" id="healBtn" data-testid="heal-button" title="Heal your pet">
                         <span class="emoji">💊</span>
                         <span>Heal</span>
                     </button>
-                    <button class="action-btn" id="bathBtn" title="Give pet a bath">
+                    <button class="action-btn" id="bathBtn" data-testid="bath-button" title="Give pet a bath">
                         <span class="emoji">🛁</span>
                         <span>Clean ($8)</span>
                     </button>
-                    <button class="action-btn" id="trainBtn" title="Train your pet">
+                    <button class="action-btn" id="trainBtn" data-testid="train-button" title="Train your pet">
                         <span class="emoji">🏋️</span>
                         <span>Train</span>
                     </button>
-                    <button class="action-btn" id="vetBtn" title="Visit the vet">
+                    <button class="action-btn" id="vetBtn" data-testid="vet-button" title="Visit the vet">
                         <span class="emoji">💉</span>
                         <span>Vet ($25)</span>
                     </button>
-                    <button class="action-btn" id="choreBtn" title="Do chores to earn money">
+                    <button class="action-btn" id="choreBtn" data-testid="chore-button" title="Do chores to earn money">
                         <span class="emoji">🧹</span>
                         <span>Chore (+$15)</span>
                     </button>
-                    <button class="action-btn" id="toyBtn" title="Buy a toy">
+                    <button class="action-btn" id="toyBtn" data-testid="toy-button" title="Buy a toy">
                         <span class="emoji">🧸</span>
                         <span>Toy ($10)</span>
                     </button>
-                    <button class="action-btn" id="trickBtn" title="Perform tricks (Lv 3+)">
+                    <button class="action-btn" id="trickBtn" data-testid="trick-button" title="Perform tricks (Lv 3+)">
                         <span class="emoji">🎪</span>
                         <span>Trick (+$5)</span>
                     </button>
@@ -137,9 +139,9 @@
 
             <div class="stats-panel">
                 <div class="tabs-container">
-                    <button class="tab-btn active" id="petStatsTab">Pet Stats</button>
-                    <button class="tab-btn" id="moneySavingsTab">Money & Savings</button>
-                    <button class="tab-btn" id="activityBadgesTab">Activity & Badges</button>
+                    <button class="tab-btn active" id="petStatsTab" data-testid="pet-stats-tab">Pet Stats</button>
+                    <button class="tab-btn" id="moneySavingsTab" data-testid="money-savings-tab">Money & Savings</button>
+                    <button class="tab-btn" id="activityBadgesTab" data-testid="activity-badges-tab">Activity & Badges</button>
                 </div>
                 
                 <!-- Pet Stats Tab -->
@@ -222,7 +224,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>⚙️ Settings</h2>
-                <button class="close-btn" id="closeSettings">&times;</button>
+                <button class="close-btn" id="closeSettings" data-testid="close-settings-button">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="setting-section">
@@ -316,7 +318,7 @@
 
                 <div class="setting-section danger-zone">
                     <h3>⚠️ Danger Zone</h3>
-                    <button id="resetBtn" class="danger-btn">Reset All Progress</button>
+                    <button id="resetBtn" class="danger-btn" data-testid="reset-button">Reset All Progress</button>
                 </div>
             </div>
         </div>
@@ -327,7 +329,7 @@
         <div class="modal-content help-modal">
             <div class="modal-header">
                 <h2>❓ Help & Tutorial</h2>
-                <button class="close-btn" id="closeHelp">&times;</button>
+                <button class="close-btn" id="closeHelp" data-testid="close-help-button">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="help-section">
@@ -646,7 +648,7 @@
         <div class="modal-content analytics-modal">
             <div class="modal-header">
                 <h2>📊 Analytics & Statistics</h2>
-                <button class="close-btn" id="closeAnalytics">&times;</button>
+                <button class="close-btn" id="closeAnalytics" data-testid="close-analytics-button">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="analytics-grid">

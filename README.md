@@ -122,7 +122,19 @@ Unlock special badges by completing challenges:
 
 ## Getting Started
 
+### Local Development
+
 Simply open `index.html` in your web browser. No installation or build process required!
+
+### Deploy to Azure
+
+This project is configured for Azure Static Web Apps deployment. See [AZURE_DEPLOYMENT.md](AZURE_DEPLOYMENT.md) for detailed deployment instructions.
+
+**Quick Deploy:**
+1. Push your code to GitHub
+2. Create an Azure Static Web App in [Azure Portal](https://portal.azure.com)
+3. Connect your GitHub repository
+4. Azure will automatically deploy on every push to `main`
 
 ## Browser Compatibility
 

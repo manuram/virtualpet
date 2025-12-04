@@ -1,0 +1,114 @@
+name: Run Testim Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering from GitHub UI
+
+jobs:
+  testim-tests:
+    name: Run Testim Automated Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install Testim CLI
+        run: npm install -g @testim/testim-cli
+      
+      - name: Verify Testim CLI installation
+        run: testim --version
+      
+      - name: Run Testim Tests
+        id: run-tests
+        env:
+          TESTIM_PROJECT_ID: ${{ secrets.TESTIM_PROJECT_ID }}
+          TESTIM_API_TOKEN: ${{ secrets.TESTIM_API_TOKEN }}
+        run: |
+          echo "🚀 Starting Testim test execution..."
+          echo "Project ID: ${TESTIM_PROJECT_ID:0:10}..." # Show first 10 chars for logging
+          
+          # Run all tests in the project
+          testim run \
+            --project "$TESTIM_PROJECT_ID" \
+            --token "$TESTIM_API_TOKEN" \
+            --parallel 3 \
+            --timeout 600 \
+            --retries 1 \
+            --output-dir ./testim-results || TEST_EXIT_CODE=$?
+          
+          # Exit with the test result code
+          exit ${TEST_EXIT_CODE:-0}
+        continue-on-error: true
+      
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: testim-test-results
+          path: |
+            testim-results/
+            *.xml
+            *.json
+          retention-days: 30
+          if-no-files-found: warn
+      
+      - name: Publish Test Results Summary
+        if: always()
+        run: |
+          echo "## 📊 Testim Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -d "testim-results" ]; then
+            echo "✅ Test results available in artifacts" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Check the 'testim-test-results' artifact for detailed results." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ No test results found" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ steps.run-tests.outcome }}" == "success" ]; then
+            echo "✅ All tests passed!" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Some tests failed. Check the logs above for details." >> $GITHUB_STEP_SUMMARY
+          fi
+      
+      - name: Comment PR with Test Results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            let comment = '## 🤖 Testim Test Results\n\n';
+            
+            if (fs.existsSync('testim-results')) {
+              comment += '✅ Tests completed. Check artifacts for detailed results.\n\n';
+            } else {
+              comment += '⚠️ Test results not available.\n\n';
+            }
+            
+            comment += `**Status**: ${{ steps.run-tests.outcome === 'success' ? '✅ Passed' : '❌ Failed' }}\n\n`;
+            comment += 'View full results in the workflow run artifacts.';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
