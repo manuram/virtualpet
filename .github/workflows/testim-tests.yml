@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       
       - name: Install Testim CLI
         run: npm install -g @testim/testim-cli
@@ -40,9 +40,10 @@ jobs:
           echo "Project ID: ${TESTIM_PROJECT_ID:0:10}..." # Show first 10 chars for logging
           
           # Run all tests in the project
-          testim run \
-            --project "$TESTIM_PROJECT_ID" \
+          testim \
             --token "$TESTIM_API_TOKEN" \
+            --project "$TESTIM_PROJECT_ID" \
+            --run all \
             --parallel 3 \
             --timeout 600 \
             --retries 1 \
