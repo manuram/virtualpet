@@ -57,8 +57,20 @@ Fill in the following information:
 Azure will automatically:
 - Create the Static Web App
 - Set up GitHub Actions (if using GitHub)
+- **Automatically add the deployment token** to your GitHub repository secrets as `AZURE_STATIC_WEB_APPS_API_TOKEN`
 - Deploy your application
 - Provide you with a URL (e.g., `https://pixelpaw-app.azurestaticapps.net`)
+
+**Important**: If you created the Static Web App manually or the secret wasn't added automatically:
+
+1. Go to your Static Web App in Azure Portal
+2. Navigate to **"Manage deployment token"**
+3. Copy the deployment token
+4. Go to your GitHub repository → **Settings** → **Secrets and variables** → **Actions**
+5. Click **"New repository secret"**
+6. Name: `AZURE_STATIC_WEB_APPS_API_TOKEN`
+7. Value: Paste the deployment token
+8. Click **"Add secret"**
 
 ### Option 2: Deploy via Azure CLI
 

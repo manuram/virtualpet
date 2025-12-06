@@ -30,6 +30,7 @@ jobs:
           app_location: "/" # App source code path
           api_location: "" # Api source code path - leave empty if not applicable
           output_location: "" # Built app content directory - leave empty if not applicable
+          skip_deploy_on_missing_secrets: false # Set to true to skip deployment if token is missing
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
