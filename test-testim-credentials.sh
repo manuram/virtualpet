@@ -34,9 +34,14 @@ echo "✅ Testim CLI is installed"
 echo "Version: $(testim --version)"
 echo ""
 
+# Grid parameter (required for all Testim CLI commands)
+GRID_PARAM="--grid cloud"
+echo "Using grid: cloud (default)"
+echo ""
+
 # Test 1: List projects (verifies token authentication)
 echo "🔍 Test 1: Listing projects (verifies token authentication)..."
-if testim projects list --token "$TOKEN" 2>&1; then
+if testim projects list --token "$TOKEN" $GRID_PARAM 2>&1; then
     echo "✅ Token authentication successful - can list projects"
 else
     echo "❌ Token authentication failed - cannot list projects"
@@ -47,7 +52,7 @@ echo ""
 
 # Test 2: Check if project ID is accessible
 echo "🔍 Test 2: Verifying project access..."
-if testim projects list --token "$TOKEN" | grep -q "$PROJECT_ID"; then
+if testim projects list --token "$TOKEN" $GRID_PARAM 2>&1 | grep -q "$PROJECT_ID"; then
     echo "✅ Project ID found in accessible projects"
 else
     echo "⚠️  Project ID not found in accessible projects list"
@@ -60,7 +65,7 @@ echo ""
 
 # Test 3: Try to run a test (dry run)
 echo "🔍 Test 3: Testing test execution (this may fail if no tests exist)..."
-if testim --token "$TOKEN" --project "$PROJECT_ID" --grid cloud --help 2>&1; then
+if testim --token "$TOKEN" --project "$PROJECT_ID" $GRID_PARAM --help 2>&1; then
     echo "✅ Command syntax is correct"
 else
     echo "⚠️  Command execution had issues (this is expected if no tests exist)"

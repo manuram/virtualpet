@@ -43,17 +43,19 @@ If you prefer to test manually:
 ### Test 1: List Projects
 
 ```bash
-testim projects list --token "YOUR_TOKEN"
+testim projects list --token "YOUR_TOKEN" --grid cloud
 ```
 
 **Expected:** List of projects your token can access
 
 **If this fails:** Token is invalid, expired, or has wrong permissions
 
+**Note:** The `--grid cloud` parameter is required for all Testim CLI commands.
+
 ### Test 2: Verify Project ID
 
 ```bash
-testim projects list --token "YOUR_TOKEN" | grep "YOUR_PROJECT_ID"
+testim projects list --token "YOUR_TOKEN" --grid cloud | grep "YOUR_PROJECT_ID"
 ```
 
 **Expected:** Your project ID appears in the list
